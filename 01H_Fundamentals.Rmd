@@ -1,0 +1,53 @@
+---
+title: "Homework 1: Hydrology Fundamentals"
+author: "David M. Kahler"
+output: pdf_document
+header-includes: 
+      \usepackage{amsmath}
+---
+**CEES 351: Water Resources Engineering**  
+**Duquesne University**  
+
+```{r include=FALSE}
+library(ggplot2)
+library(raster)
+library(rgdal)
+library(dplyr)
+library(broom)
+```
+
+1. (Margulis problem 1.9.1 and 2) Name at least four hydrologic reservoirs and at least four hydrologic fluxes.
+2. Given the data tables below, choose one of the citations and write a paragraph that describes the methods used to measure one (choose either a precipitation or evaporation, or a water storage body) of the quantities. Also, most of these measurements are based on the assumption that the hydrologic cycle is approximately closed; please find peer- reviewed material that either supports or refutes this assumption and include a paragraph summary of the article.
+3. What is the average residence time for soil water if you assume that all precipitation infiltrates to the soil water (make sure to state your assumption of soil water storage). Make another assumption for infiltration and provide some rationale for your choice.
+4. (Margulis problem 1.4) A Palm Spring golf course has requested a permit to install a $40\ 000\ ft^2$ pond to enhance the beauty of its facilities. Since the evaporation rates are very high in Palm Springs, it is likely they will need to pump a lot of groundwater to keep the pond full. The city has hired you (a water resources engineer) to determine how much water needs to be pumped per year in order to keep the pond filled. There is a small creek that discharges an average of $0.25\ m^3/s$ in to the pond. The outlet valve from the pond releases an average rate of $0.30\ m^3/s$ (to keep the pond from getting stagnant).  Precipitation on the pond is $260\ mm/y$, and the annual evaporation is estimated to be $105\ in/y$. The pond will be lined with concrete to prevent any drainage or seepage from the bottom. Using a water balance, what volume (on average) of groundwater (in cubic meters, $m^3/y$) must be added to the lake each year to keep the pond at a constant level?  Draw a schematic of the problem to identify the control volume and the relevant fluxes. Clearly write out/define your water balance equation and variables along with any assumptions you make.  
+5. Assume you have $1\ kg$ of water that is currently at $99\ ^o C$.  How much energy is required to bring it to $100 ^o C$ and how much energy is required to volatilize the entire mass?  Express both answers in terms of Joules, $J$, without prefixes (so the two values can be compared).  
+
+Table 3.2.1  Estimates of world water balance ($\frac{m}{y}$).  From Brutsaert (2005).  
+
+|Reference                    |Land P|Land R|Land E|Ocean P|Ocean E|Global P=E|
+|---|---|---|---|---|---|---|
+Budyko (1970, 1974)           |0.73  |0.31  |0.42  |1.14   |1.26   |1.02      |
+Lvovitch (1970)               |0.73  |0.26  |0.47  |1.14   |1.24   |1.02      |
+Lvovitch (1973)               |0.83  |0.29  |0.54  |       |       |          |
+Baumgartner and Reichel (1975)|0.75  |0.27  |0.48  |1.07   |1.18   |0.97      |
+Korzun et al. (1978)          |0.80  |0.32  |0.49  |1.27   |1.40   |1.13      |
+
+Table 3.2.2 Estimates of different forms of global water storage (depth, $m$, over Earth’s surface)
+From Brutseart (2005)  
+
+|Reference             |Lvovitch (1970) |Baumgartner and Reichel (1975) |Korzun et al. (1978) |  
+|----------------------|----------------|-------------------------|---------------------|  
+|Oceans                |2686            |2643                     |2624                 |  
+|Ice caps and glaciers |47.1            |54.7                     |47.2                 |  
+|Total groundwater     |117.6           |15.73                    |45.9                 |  
+|Soil water            |0.161           |0.120                    |0.0323               |  
+|Lakes                 |0.451           |0.248                    |0.346                |  
+|Rivers                |0.00235         |0.00212                  |0.00416              |  
+|Atmosphere            |0.0274          |0.0255                   |0.0253               |  
+
+## References: 
+- Baumgartner, A. and Reichel, E. (1975). The World Water Balance. Amsterdam: Elsevier Scientific Publishing Company.
+- Budyko, M. I. (1970). The water balance of the oceans. Symposium on world water balance, Proc. Reading Sympos., Vol. I, Int. Assoc. Sci. Hydrology, Publication No. 92, pp. 24-33.  
+- Korzun, V. I. et al. (eds.) (1978). World Water Balance and Water Resources of the Earth, USSR National Committee for International Hydrological Decade. Paris: UNESCO Press.  
+- Lvovitch, M. I. (1970). World water balance. Symposium on world water balance, Proc. Reading Sympos., Vol. II, Int. Assoc. Sci. Hydrology, Publication No. 93, pp. 401-415.  
+- Lvovitch, M. I. (1973). The global water balance. Trans. Amer. Geophys. Un., 54. (US-IHD Bull. No 23), 28-42.  

@@ -1,0 +1,64 @@
+---
+title: "Evaporation"
+author: "David M. Kahler"
+output: pdf_document
+header-includes: 
+      \usepackage{amsmath}
+---
+**CEES 351: Water Resources Engineering**  
+**Duquesne University**  
+
+```{r include=FALSE}
+library(ggplot2)
+library(raster)
+library(rgdal)
+library(dplyr)
+library(broom)
+```
+
+## 8. Evaporation
+We have already developed one method of actual evapotranspiration measurement, eddy covariance.  The other common method to measure actual evaporation is the energy balance with Bowen ratio.
+
+Types of evaporation:  
+- Evaporation: the flux of water vapor from the landscape due to the latent heat of vaporization.    
+- Transpiration: the flux of water vapor from plants due to transpiration.  
+- Evapotranspiration: the flux of water vapor from a vegetated landscape.  
+- Potential evaporation: the evapotranspiration from a landscape of short, active vegetation with readily available moisture.  
+- Pan evaporation: the evaporation from an evaporating pan.  
+
+### 8.1 Eddy Covariance  
+As a related consequence, the turbulence profiles also allow us to estimate these fluxes by similarity.  This similarity is based on the structure of the atmospheric boundary layer.  The “Free” atmosphere is the portion of the atmosphere that is not affected by the motion of, or the activities on, the surface.  The inversion layer is the slip layer that transitions between the ABL and the free atmosphere.  Below, there are two general divisions, the outer/defect layer and the inner/surface layer.  Below the surface layer is the where the individual roughness elements play a great role.  It is in the inner/surface layer that we can apply most similarity concepts, that is, that the transfer of one fluid property occurs similarly to that of another property.  Formally, this is called Monin-Obukhov similarity, named after some of the initial discoverers.  From this, we get most turbulent similarity.  This is empirical.
+
+\begin{equation}
+E = \rho \overline{q' w'}  
+\end{equation}  
+
+### 8.2 Energy Budget with Bowen Ratio  
+This method begins with a restatement of the surface energy budget and the definition of the Bowen ratio, the ratio of the sensible heat flux to the latent heat flux.  
+
+\begin{equation}
+R_{n} = G + H + L_{e}E  
+\end{equation}  
+
+\begin{equation}
+\mathrm{Bo} = \frac{H}{L_{e}E}  
+\end{equation}  
+
+Which, if the Bowen Ratio can be determined (which it can, as we will show below), can be used to determine the evaporation.  First, we rearrange the surface energy balance and replace $H$ with the Bowen ratio from (6.3.2):
+$R_n-G=L_eE+Bo L_eE=(1+Bo) L_eE$.  Also, it is most convenient to calculate the ground heat flux as a fraction of the net radiation (Fuchs and Hadas, 1972).  Empirically, the ground heat flux can be related to the net radiation by: $G = c_R R_n$ where $c_R$ is found by experiment.  Fuchs and Hadas found $c_R = 0.3$ for bare soil – although vegetation will decrease $c_R$.  Perrier (1975) found $c_R = 0.2$ for maize and there is good agreement for $c_R = 0.1$ for grass (Brutsaert, 1982).
+
+\begin{equation}
+(1 - c_R) Rn = (1 + \mathrm{Bo}) L_eE
+\end{equation}  
+
+\begin{equation}
+E = \frac{(1 - c_R) \frac{R_n}{L_e}}{1 + \mathrm{Bo}}  
+\end{equation}  
+
+How do we measure the Bowen Ratio?  
+
+### 8.3 Catchment Method  
+
+
+### 8.4 Evaporation Pan  
+and lysimeter

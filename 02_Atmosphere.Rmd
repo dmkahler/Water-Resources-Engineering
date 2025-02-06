@@ -1,0 +1,273 @@
+---
+title: "Atmosphere"
+author: "David M. Kahler"
+output: pdf_document
+header-includes: 
+      \usepackage{amsmath}
+---
+**CEES 351: Water Resources Engineering**  
+**Duquesne University**  
+
+```{r include=FALSE}
+library(ggplot2)
+library(raster)
+library(rgdal)
+library(dplyr)
+library(broom)
+```
+
+## 7. Atmospheric Properties  
+### 7.1 Humidity  
+Let’s define the partial densities of water vapor (v) and dry air (d).  Both quantities are taken as the independent masses in a given parcel of air (note that the volumes are the same in both definitions).  
+
+\begin{equation}
+\rho_v = \frac{m_{vapor}}{\mathrm{V\llap{--}}_{air}}  
+\end{equation}  
+
+\begin{equation}
+\rho_d = \frac{m_{dry}}{\mathrm{V\llap{--}}_{air}}  
+\end{equation}  
+
+where the subscript *dry* refers only to the dry component of air, *vapor* refers only to the water, and *air* refers to the bulk [possibly] humid air.  Quantities without subscripts indicate the air in its variable state.  The mixing ratio is defined (although infrequently used):  
+
+\begin{equation}
+m = \frac{\rho_v}{\rho_d} = \frac{m_{vapor}}{m_{dry}} 
+\end{equation}  
+
+where $\rho_v$ and $\rho_d$ are the densities of the vapor and dry air of a given volume of air, respectively.  The specific humidity is the ratio of the vapor density to the moist air density:  
+
+\begin{equation}
+q\ = \frac{\rho_v}{\rho}  
+\end{equation}  
+
+and relative humidity:  
+
+\begin{equation}
+r\ = \frac{\rho_v}{\rho \ast} \approx\ \frac{e}{e \ast}  
+\end{equation}  
+
+where $\rho \ast$ is the density of saturated air; the relative humidity is nearly the ratio of the actual vapor pressure ($e$) to the saturation vapor pressure ($e \ast$).  Dalton’s Law (partial pressure) states that the total pressure equals the sum of the pressure of the constituent gasses.  The partial component of the Ideal Gas Law gives us the expression for the density of the dry component of air:  
+
+\begin{equation}
+\rho_d = \frac{p-e}{R_d T}
+\end{equation}  
+
+where $p$ is the total pressure of the moist air, $e$ is the partial water vapor pressure, $T$ is the temperature in Kelvin, and $R_d$ is the dry air gas constant.  Similarly,  
+
+\begin{equation}
+\rho_v = \frac{0.622 e}{R_d T}
+\end{equation}  
+
+where the dry air gas constant is adjusted by the ratio of the molecular weight of dry air (nearly all $\mathrm{N}_2$) and water.  The combination, $\rho_d + \rho_v$, yields the expression:  
+
+\begin{equation}
+\rho = \frac{p-0.378e}{R_d T}
+\end{equation}  
+
+that shows that humid air is less dense than dry air.  We can also extract from this the definition for the virtual temperature, $T_v$.  We start with the equation for $\rho_v$ and solve for e.  Then, substitute the value into the equation for $\rho$:  
+
+\begin{equation}
+\frac{R_d T \rho_v}{0.622} = e
+\end{equation}  
+
+\begin{equation}
+\rho = \frac{p}{R_d T} - \frac{0.378}{R_d T} \cdot \frac{R_d T \rho_v}{0.622}
+\end{equation}  
+
+\begin{equation}
+\rho = \frac{p}{R_d T} - 0.61 \rho_v
+\end{equation}  
+
+Adding the 0.61 term to both sides and multiplying by $\rho^{-1}$:  
+
+\begin{equation}
+1 + 0.61 \frac{\rho_v}{\rho} = \frac{p}{\rho R_d T}
+\end{equation}  
+
+\begin{equation}
+p = \rho T R_d (1 + 0.61 q)
+\end{equation}  
+
+\begin{equation}
+T_v = T (1 + 0.61 q)
+\end{equation}  
+
+which is the temperature that dry air should have in order to have the same density as moist air given $q$, $T$, and $p$.  
+
+The saturation vapor pressure, $e \ast$, can be computed by a number of methods:  
+
+\begin{multline}
+\log_{10} e \ast\ = 7.90298 (\frac{T_{st}}{T} - 1) + 5.02808 \log_{10} (\frac{T_{st}}{T}) - 1.3816 \times 10^{-7}  (10^{11.344 (1 - \frac{T}{T_{st}})} - 1) + 
+\\ 8.1328 \times 10^{-3} (10^{-3.19149 (\frac{T_{st}}{T} - 1)} - 1) + \log_{10} e \ast_st
+\end{multline}  
+
+where the logarithms are base 10, temperature is in Kelvin, and the steam-point temperature, $T_{st}$, is 373.16K and $e \ast_{st} = 1013.25 \mathrm{hPa}$.  Or, the nested form:
+
+\begin{equation}
+e \ast = a_0 + T ( a_1 + T ( a_2 + T ( a_3 + T (a_4 + T (a_5 + T a_6)))))
+\end{equation}  
+
+where the coefficients are given by:  
+
+|Variable|Value|
+|---|---|
+|$a_0$|$6984.505294$|
+|$a_1$|$-188.9039310$|
+|$a_2$|$2.133357675$|
+|$a_3$|$-1.288580973 \times 10^{-2}$|
+|$a_4$|$4.393587233 \times 10^{-5}$|
+|$a_5$|$-8.023923082 \times 10^{-8}$|
+|$a_6$|$6.136820929 \times 10^{-11}$|  
+
+The slope of the vapor pressure curve, $\Delta = \frac{d e \ast}{d T}$, is given by the empirical relationship:  
+
+\begin{equation}
+\Delta = \frac{d e \ast}{d T} = \frac{373.15 e \ast}{T^2} (13.3185-3.952 tr - 1.9335 tr^2 - 0.5196 tr^3)  
+\end{equation}  
+
+where $t_r = 1 - \frac{373.15}{T}$ and all temperatures, $T$, are in the same unit, $K$.  The psychrometric constant is given by:
+
+\begin{equation}
+\gamma = 4.9289 \times 10^{-7} T{2} + 3.4717 \times 10^{-4} T + 0.51443  
+\end{equation}  
+
+A typical value is $\gamma = 0.67 \frac{mb}{K}$ for $20^\circ C$ and standard atmosphere.  These have been measured and equations developed empirically or semi-empirically.
+
+### 7.2 Atmospheric Stability  
+The change in energy of a system (h) is given by:  
+
+\begin{equation}
+dh = c_p dT - \alpha dp
+\end{equation}  
+
+Hydrostatic pressure gives us:  
+
+\begin{equation}
+dp = -\rho g dz
+\end{equation}  
+
+which, combined, gives:  
+
+\begin{equation}
+dh = c_p  dT + \rho g \alpha dz
+\end{equation}  
+
+The dry adiabatic lapse rate is the change in temperature that a small parcel of air will experience if it is displaced.  This displacement must be insulated from energy changes (adiabatic) and vapor changes (dry); therefore, $dh = 0$ and we can solve for $\frac{dT}{dz} = -\frac{g}{c_p}$, for a small volume of air and indicated by a capital gamma: $\Gamma_{d}$; the actual lapse rate, $\Gamma$, is the temperature profile of the atmosphere.  
+
+![Unstable (left) and stable (right) atmosphere](figures/atm_stable.eps)  
+
+Should the parcel be displaced, the temperature at its new position (according to the dry adiabatic lapse rate, $\Gamma_d$) in comparison to the surrounding air temperature (according to the actual lapse rate, $\Gamma$) will determine the stability.  Therefore:  
+
+|Condition |Lapse Rate |  
+|---|---|  
+|Stable   |$\Gamma > \Gamma_d$      |  
+|Neutral  |$\Gamma \approx \Gamma_d$  |  
+|Unstable |$\Gamma < \Gamma_d$      |  
+
+During a sunny day, the atmosphere generally becomes unstable, a night, when the surface of the Earth is no longer heating the bottom of the atmosphere, the atmosphere becomes more stable.  
+
+### 7.3 Turbulent Transport  
+Here, the vector convention will be used: $\vec{x} = x \hat{i} + y \hat{j} + z \hat{k}$ and $\vec{u} = u \hat{i} + v \hat{j} + w \hat{k}$ in a right-handed coordinate system.  
+
+The atmosphere is turbulent.  We recall from fluid mechanics that a high Reynolds number corresponds to turbulence.  The Reynolds number compares inertial forces to viscous forces.  Viscosity quenches turbulence.  
+
+\begin{equation}
+\mathrm{Re} = \frac{\rho u L}{\mu} = \frac{u L}{\nu}
+\end{equation}  
+
+When we are talking about the atmosphere, this calculation becomes:
+
+\begin{equation}
+\mathrm{Re} = \frac{1.255\ u\ L}{1.983 \times 10^{-5}} = 6.329 \times 10^{4}\ u\ L  
+\end{equation}  
+
+Turbulence is the series of deviations from the mean of the motion at varying magnitudes from the Kolmogorov length scale to the largest eddy within the fluid (for *fully-developed* turbulence).  It is chaotic and irregular.  The Kolmogorov scale, the smallest relevant eddy size, can be calculated as the length scale, $L$, that yields $\mathrm{Re} = 1$.  
+
+It also allows us to decompose quantities into the mean and deviation: $b = \bar{b} + b'$, called Reynolds decomposition.  When we consider the flux of water vapor and its decomposition:  
+
+\begin{equation}
+F = \rho q \vec{u}
+\end{equation}  
+
+\begin{equation}
+F = \rho (\bar{q} + q') (\overline{\vec{u}} + \vec{u}')
+\end{equation}  
+
+which yields four terms; however, the averages of fluctuations will always yield zero and we therefore retain two terms:  
+
+\begin{equation}
+F = \rho (\overline{\vec{u} q} + \overline{\vec{u}' q'})
+\end{equation}  
+
+If we consider the continuity equation (divergence of density times velocity vector):  
+
+\begin{equation}
+\frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \vec{u}) = 0  
+\end{equation}  
+
+Instead of the velocity as the fluid property of interest, we consider the flux of water vapor, $q$ (although, any other flux quantity may also be considered):  
+
+\begin{equation}
+\frac{\partial \rho q}{\partial t} + \frac{\partial \rho q u}{\partial x} + \frac{\partial \rho q v}{\partial y} + \frac{\partial \rho q w}{\partial z} = 0  
+\end{equation}  
+
+Utilizing Reynolds decomposition and assuming that density is constant, $\frac{\partial \rho}{\partial t} = \frac{\partial \rho}{\partial \vec{x}} = 0$, we can write and simplify:  
+
+\begin{equation}
+\frac{\partial (\overline{q} + q')}{\partial t} + \frac{\partial (\overline{q} + q') (\overline{u} + u')}{\partial x} + \frac{\partial (\overline{q} + q') (\overline{v} + v')}{\partial y} + \frac{\partial (\overline{q} + q') (\overline{w} + w')}{\partial z} = 0  
+\end{equation}  
+
+\begin{equation}
+\ldots + \frac{\partial (\overline{\overline{q} \overline{u}} + \overline{\overline{q} u'} + \overline{q' \overline{u}} + \overline{q' u'})}{\partial x} + \ldots = 0  
+\end{equation}  
+
+\begin{equation}
+\ldots + \frac{\partial (\overline{\overline{q} \overline{u}} + \overline{q' u'})}{\partial x} + \ldots = 0  
+\end{equation}  
+
+\begin{equation}
+\ldots + \overline{u} \frac{\partial \overline{q}}{\partial x} + \overline{q} \frac{\partial \overline{u}}{\partial x} + \frac{\partial \overline{q' u'}}{\partial x} + \ldots = 0  
+\end{equation}  
+
+\begin{equation}
+\ldots + \overline{u} \frac{\partial \overline{q}}{\partial x} + \frac{\partial \overline{q' u'}}{\partial x} + \ldots = 0  
+\end{equation}  
+
+\begin{equation}
+\frac{\partial \overline{q}}{\partial t} + \overline{u} \frac{\partial \overline{q}}{\partial x} + \overline{v} \frac{\partial \overline{q}}{\partial y} + \overline{w} \frac{\partial \overline{q}}{\partial z} + \frac{\partial \overline{q' u'}}{\partial x} + \frac{\partial \overline{q' v'}}{\partial y} + \frac{\partial \overline{q' w'}}{\partial z} = 0  
+\end{equation}  
+
+Notably, molecular diffusion and the Coriolis effect are missing from this analysis.  Within the atmospheric boundary layer, we apply several simplifying assumptions that include that velocity doesn't change in the direction of flow, $\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y} = \frac{\partial w}{\partial z} = 0$, and those based on the trend that horizontal gradients are small compared to vertical gradients, $\frac{d}{dx} \approx \frac{d}{dy} \approx 0$, and that horizontal velocities are large compared to vertical velocities, $\overline{w} \approx 0$.  
+
+These simplifications can be used to reduce the continuity equation, or the flux equation:  
+
+\begin{equation}
+E = \rho \overline{q' w'}  
+\end{equation}  
+
+Momentum flux follows similarly, also known as the shear stress:  
+
+\begin{equation}
+\tau_0 = -\rho \overline{u'w'}  
+\end{equation}  
+
+And we define the friction velocity, u*:  
+
+\begin{equation}
+e_*^2 = \frac{\tau_0}{\rho} = \overline{u'w'}
+\end{equation}  
+
+And sensible heat:  
+
+\begin{equation}
+H = \rho c_p \overline{\theta' w'}  
+\end{equation}  
+
+where $\theta$ is the potential temperature, which is the temperature that would result if the air were brought adiabatically to a standard pressure level p_{0} = 1000 hPa, or:  
+
+\begin{equation}
+\theta = T \cdot (\frac{p_0}{p})^{\frac{R_d}{c_p}}  
+\end{equation}  
+
+These are covariances and the consequence is eddy-covariance measurements of evaporation and heat flux.  This is the theory of measurement behind eddy-covariance methods.  
+

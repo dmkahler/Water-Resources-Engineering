@@ -1,0 +1,20 @@
+--
+title: "Homework 3: Evaporation"
+author: "David M. Kahler"
+output: pdf_document
+header-includes: 
+      \usepackage{amsmath}
+---
+**CEES 351: Water Resources Engineering**  
+**Duquesne University**  
+
+```{r include=FALSE}
+library(ggplot2)
+library(raster)
+library(rgdal)
+library(dplyr)
+library(broom)
+```
+
+
+5. Calculate the evaporation by Penman’s equation for a net radiation of 101 W m-2 and the same other parameters as question #1.

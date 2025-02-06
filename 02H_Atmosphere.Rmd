@@ -1,0 +1,62 @@
+---
+title: "Homework 2: Atmosphere"
+author: "David M. Kahler"
+output: pdf_document
+header-includes: 
+      \usepackage{amsmath}
+---
+**CEES 351: Water Resources Engineering**  
+**Duquesne University**  
+
+```{r include=FALSE}
+library(ggplot2)
+library(raster)
+library(rgdal)
+library(dplyr)
+library(broom)
+```
+
+1. Indicate which of the following statements are correct.  An unstable atmosphere:
+- a. Causes turbulence to be damped;
+- b. Usually results in vertical profile of horizontal wind velocity that is more uniform than the stable atmosphere;
+- c. Causes the mean horizontal wind velocity to be larger (on a regional scale) than that of a neutral atmosphere;
+- d. In the surface layer is favorable to disperse the pollutants;
+- e. Is likely to be found over a deep lake in the spring, when warm air blows over the water.
+
+2. Indicate which of the following statements are correct.  Stable conditions in the atmosphere near the Earth’s surface:
+- a. Result in increased turbulent mixing (compared to unstable conditions);
+- b. Are necessarily the result of smoothness of the surface;
+- c. Are often observed under nearly windless conditions with the surface cooling by longwave radiation;
+- d. Would be expected over an extensive and deep water body in early spring under a cloudy sky, when warm air moves over the water;
+- e. Are more likely to be accompanied by dew (negative evaporation) than unstable conditions (over land);
+- f. Indicate that there is a high likelihood for thunderstorm activity.
+
+3. Given the data for a summer day in a temperate climate, air temperature $T_a = 17.94\ ^{\circ} C$, relative humidity $66%$, incoming short-wave radiation $R_s = 226.79\ W\ m^{-2}$.  Calculate net radiation in $W\ m^{-2}$ for a surface covered with active, short vegetation (assume an albedo of $\alpha = 0.2$ and surface emissivity of $\varepsilon_s = 0.97$).  Assume the air temperature is equal to the surface temperature.  Recall,
+
+\begin{equation}
+R_{lu} = \varepsilon_s \sigma T_s^4  
+\end{equation}  
+
+\begin{equation}
+R_{ld} = \varepsilon_a \sigma T_a^4  
+\end{equation}  
+
+\begin{equation}
+\varepsilon_a = a\ (\frac{e_a}{T_a})^b  
+\end{equation}  
+where the constants were found empirically, $a = 1.24$ and $b = 1/7$, $e_a$ is the vapor pressure in hPa (equivalent to mb), and $T$ is in Kelvin.  
+
+4. How much liquid water in a month (in $mm\ month^{-1}$) can be evaporated by an energy supply of $1\ W\ m^{-2}$?  Assume $25 ^{\circ}C$.
+
+5. Given the following measurements:
+- $R_n = 250\ W\ m^{-2}$
+- $G = 30\ W\ m^{-2}$
+- $H = 55\ W\ m^{-2}$  
+
+Calculate:  
+- a. What is the evaporation rate in $mm\ day^{-1}$?  
+- b. What is the Bowen ratio?  
+- c. Was the atmosphere stable, neutral, or unstable?  
+
+
+
