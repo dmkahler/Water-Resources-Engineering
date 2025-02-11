@@ -44,6 +44,7 @@ netr <- c(ncvar_get(nc1, attributes(nc1$var)$names[22]), ncvar_get(nc2, attribut
 bowr <- c(ncvar_get(nc1, attributes(nc1$var)$names[98]), ncvar_get(nc2, attributes(nc2$var)$names[98])) # Bowen ratio
 leef <- c(ncvar_get(nc1, attributes(nc1$var)$names[100]), ncvar_get(nc2, attributes(nc2$var)$names[100])) # latent heat flux
 shef <- c(ncvar_get(nc1, attributes(nc1$var)$names[102]), ncvar_get(nc2, attributes(nc2$var)$names[102])) # sensible heat flux
+temp <- c(ncvar_get(nc1, attributes(nc1$var)$names[8]), ncvar_get(nc2, attributes(nc2$var)$names[8])) # temperature
 
 dat <- data.frame(dt, netr, leef, shef, bowr)
 ggplot(dat, aes(x = dt)) +

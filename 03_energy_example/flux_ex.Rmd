@@ -1,0 +1,145 @@
+---
+title: "Evaporation Example"
+author: "David M. Kahler"
+output: pdf_document
+header-includes: 
+      \usepackage{amsmath}
+---
+**CEES 351: Water Resources Engineering**  
+**Duquesne University**  
+
+```{r include=FALSE}
+library(ggplot2)
+library(raster)
+library(rgdal)
+library(dplyr)
+library(broom)
+library(readr)
+library(tidyr)
+library(lubridate)
+library(latex2exp)
+library(ncdf4)
+
+nc1 <- nc_open("sgp30ebbrE13.b1.20210801.000000.nc")
+nc2 <- nc_open("sgp30ebbrE13.b1.20210802.000000.nc")
+```
+
+# Data  
+Atmospheric Radiation Measurement (ARM) user facility. 2016. Energy Balance Bowen Ratio Station (30EBBR). 1993-07-04 to 2021-09-06,  Southern Great Plains (SGP) Lamont, OK (Extended and Co-located  with C1) (E13). Compiled by D. Cook, R. Sullivan, D. Whiteman, E. Keeler, and B. Ermold. ARM Data Center. Data set accessed 2021-09-08 at http://dx.doi.org/10.5439/1025337.  
+
+# Energy Budget with Bowen Ratio  
+This method begins with a restatement of the surface energy budget and the definition of the Bowen ratio, the ratio of the sensible heat flux to the latent heat flux.  
+
+\begin{equation}
+R_{n} = G + H + L_{e}E  
+\end{equation}  
+
+\begin{equation}
+\mathrm{Bo} = \frac{H}{L_{e}E}  
+\end{equation}  
+
+Recall, it is most convenient to calculate the ground heat flux as a fraction of the net radiation (Fuchs and Hadas, 1972).  Empirically, the ground heat flux can be related to the net radiation by: $G = c_R R_n$ where $c_R$ is found by experiment:
+
+|Surface |$c_R$ |Citation |
+|---|---|
+|Bare soil |0.3 |Fuchs and Hadas, 1972 |
+|Maize |0.2 |Parrier, 1975 |
+|Grass |0.1 |Brutsaert, 1982 |  
+
+\begin{equation}
+(1 - c_R) Rn = (1 + \mathrm{Bo}) L_eE
+\end{equation}  
+
+\begin{equation}
+E = \frac{(1 - c_R) \frac{R_n}{L_e}}{1 + \mathrm{Bo}}  
+\end{equation}  
+
+```{r echo=FALSE, warning=FALSE}
+bt1 <- ncvar_get(nc1, attributes(nc1$var)$names[1]) # base time
+bt2 <- ncvar_get(nc2, attributes(nc2$var)$names[1]) # base time
+ts1 <- ncvar_get(nc1, attributes(nc1$var)$names[2]) # time (seconds)
+ts2 <- ncvar_get(nc2, attributes(nc2$var)$names[2]) # time (seconds)
+s1 <- length(ts1)
+s2 <- length(ts2)
+dt <- array(NA, dim = (s1+s2))
+for (i in 1:s1) {
+      dt[i] <- ((bt1+ts1[i]-(6*3600)) - as.numeric(ymd_hms("2021-08-01T00:00:00"))) / 3600 # hours relative to local midnight 01 Aug 2021
+}
+for (i in (1:s2)) {
+      dt[s1+i] <- ((bt2+ts2[i]-(6*3600)) - as.numeric(ymd_hms("2021-08-01T00:00:00"))) / 3600 # hours relative to local midnight 01 Aug 2021
+}
+rm(bt1, bt2, ts1, ts2, s1, s2)
+
+netr <- c(ncvar_get(nc1, attributes(nc1$var)$names[22]), ncvar_get(nc2, attributes(nc2$var)$names[22])) # net radiation
+bowr <- c(ncvar_get(nc1, attributes(nc1$var)$names[98]), ncvar_get(nc2, attributes(nc2$var)$names[98])) # Bowen ratio
+leef <- c(ncvar_get(nc1, attributes(nc1$var)$names[100]), ncvar_get(nc2, attributes(nc2$var)$names[100])) # latent heat flux
+shef <- c(ncvar_get(nc1, attributes(nc1$var)$names[102]), ncvar_get(nc2, attributes(nc2$var)$names[102])) # sensible heat flux
+temp <- c(ncvar_get(nc1, attributes(nc1$var)$names[8]), ncvar_get(nc2, attributes(nc2$var)$names[8])) # temperature
+
+dat <- data.frame(dt, netr, leef, shef, bowr, temp)
+ggplot(dat, aes(x = dt)) +
+      geom_line(aes(y = netr, color = "Net Radiation")) +
+      geom_line(aes(y = leef, color = "Evaporation")) +
+      geom_line(aes(y = shef, color = "Sensible Heat")) +
+      labs(color = "Flux", x = "Hour", y = TeX('Power ($W/m^2$)'), title = "01 Aug 2021, Oklahoma, USA") +
+      xlim(0,24) +
+      theme(panel.background = element_rect(fill = "white", colour = "black")) +
+      theme(aspect.ratio = 1) +
+      theme(axis.text = element_text(face = "plain", size = 12))
+```
+
+```{r include=FALSE}
+dat2 <- dat %>%
+     filter(dt>=0) %>%
+     filter(dt<24)
+day_LeE <- mean(dat2$leef)
+t <- mean(dat2$temp)
+Le <- -1.82948E-2*t^3 + 8.81543E-1*t^2 - 2.37904E+3*t + 2.50097e+6 # J/kg
+rho <- 1.641853602E-5*t^3 - 6.029365962E-3*t^2 + 2.617352384E-2*t + 9.999796842E+2 # kg/m^3
+evap_mm <- (day_LeE/Le/rho)*1000*3600*24
+```
+The average evaporation for this day is: `r day_LeE` $W\ m^2$.  By dimensional analysis, we can convert between the units:
+
+\begin{equation}
+\frac{L_{e}E}{1} \frac{1}{L_{e}} \frac{1}{\rho}  
+\end{equation}  
+
+\begin{equation}
+\frac{W}{m^2} = \frac{J}{s\ m^2} \frac{kg}{J} \frac{m^3}{kg} = \frac{m}{s} \frac{10^3 mm}{m} \frac{3600 s}{h} \frac{24 h}{d} = \frac{mm}{d}  
+\end{equation}  
+
+Recall, the latent head of vaporization, $L_e$, and density, $\rho$, are functions of temperature; however, we can also use $L_e \approx 2.471 \times 10^6 \frac{J}{kg}$ and $\rho \approx 999\ \frac{kg}{m^3}$.  This example uses the temperature-adjusted values.  This gives a daily evaporation (midnight to midnight, as that is what is plotted) of `r evap_mm` $mm$.  The negative sign is from the energy flux, thus this is an evaporation, not deposition.
+
+# Pan Evaporation  
+Pan evaporation is, by practicality, a daily measurement.  Like most meteorological measurements, the day typically begins in the morning and ends the following morning.  Pan evaporation was initially developed to judge crop irrigation requirement but has expanded due to its simplicity.  The measurement of evaporation contains a lot of unit conversions.  We can measure evaporation in terms of $W/m^2$, $kg/(s\ m^2)$, or $mm$ (of course, in the US, we also have inches or hundredths of inches; you must read metadata carefully!).  
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+x <- read_csv("2561295.csv") # This file is in the "metric" system per NOAA, precipitation and evaporation are in mm.
+
+chick.pan <- x %>% 
+      filter(STATION == "USC00341750") %>% 
+      arrange(DATE) 
+
+# Check data and convert to W/m^2
+# For example, on 23 Aug 2008 at Chickashaw, there is a 95 mm evaporation, which is crazy.  This was after over a week of no observations.  This algorithm will remove any evaporation over 30 mm.
+for (i in 1:(nrow(chick.pan))) {
+      if ((chick.pan$EVAP[i] > 30) & (is.na(chick.pan$EVAP[i]) == FALSE)) {
+            chick.pan$EVAP[i] <- NA
+      }
+      if ((is.na(chick.pan$TMIN[i]) == FALSE) & (is.na(chick.pan$TMAX[i]) == FALSE)) {
+            t = (chick.pan$TMIN[i] + chick.pan$TMAX[i]) / 2
+      } else {
+            t <- 23 # Consider making it date dependent
+      }
+      Le <- -1.82948E-2*t^3 + 8.81543E-1*t^2 - 2.37904E+3*t + 2.50097e+6 # J/kg
+      rho <- 1.641853602E-5*t^3 - 6.029365962E-3*t^2 + 2.617352384E-2*t + 9.999796842E+2 # kg/m^3
+      # e (mm/d) / (1000 mm/m) / (86400 s/d) * (999 kg/m^3) * (2.265*10^6 J/kg) = W/m^2
+      chick.pan$LeE[i] <- chick.pan$EVAP[i] * rho * Le / 86400000
+}
+
+ggplot(chick.pan, aes(x = DATE, y = EVAP)) +
+      geom_line() +
+      labs(x = "Date", y = "Evaporation (mm)") +
+      theme(panel.background = element_blank(), panel.border = element_rect(fill = NA), panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+```
+

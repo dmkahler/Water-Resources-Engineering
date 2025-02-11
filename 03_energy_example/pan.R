@@ -4,8 +4,7 @@ library(tidyr)
 library(ggplot2)
 library(latex2exp)
 
-setwd("/Users/davidkahler/Documents/R/evaporation")
-x <-read_csv("2561295.csv") # This file is in the "metric" system per NOAA, precipitation and evaporation are in mm.
+x <- read_csv("03_energy_example/2561295.csv") # This file is in the "metric" system per NOAA, precipitation and evaporation are in mm.
 
 chick.pan <- x %>% 
       filter(STATION == "USC00341750") %>% 
