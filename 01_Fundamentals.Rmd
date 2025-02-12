@@ -265,3 +265,4 @@ If a flow is incompressible and steady, generally, we consider the density to be
 \begin{equation}
 \bar{u}_{i,j} = \frac{\partial}{\partial x_i} \cdot \bar{u_i} = 0 = \frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} + \frac{\partial w}{\partial z}  
 \end{equation}  
+

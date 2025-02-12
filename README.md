@@ -14,7 +14,7 @@
 - [Homework](https://duq.box.com/s/nkik2xkupvqbskvkptdlfvsu7gv9xaxt)  
 
 ## Evaporation  
-- Notes  
+- [Notes](https://duq.box.com/s/1t3l6zhrt4hfcldbxln9wbmgs0wdgk9o)    
 - [Figures](https://duq.box.com/s/pxd5xjb5o61yqlzfclyqs1w51ni6r4y6)  
 - [Energy Flux Example](https://duq.box.com/s/5p726wtk68fv1e7r5xt3phdv038l34lc), also see "energy example" folder  
 - Homework  
