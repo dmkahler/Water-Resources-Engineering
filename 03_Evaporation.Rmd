@@ -16,7 +16,7 @@ library(dplyr)
 library(broom)
 ```
 
-## 8. Evaporation
+## 8. Evaporation Measurement
 We have already developed one method of actual evapotranspiration measurement, eddy covariance.  The other common method to measure actual evaporation is the energy balance with Bowen ratio.
 
 Types of evaporation:  
@@ -25,6 +25,8 @@ Types of evaporation:
 - Evapotranspiration: the flux of water vapor from a vegetated landscape.  
 - Potential evaporation: the evapotranspiration from a landscape of short, active vegetation with readily available moisture.  
 - Pan evaporation: the evaporation from an evaporating pan.  
+
+We usually lump evaporation and evapotranspiration together as ET.  Some studies show that transpiration can be as much as 90% of landscape ET.  
 
 ### 8.1 Eddy Covariance  
 As a related consequence, the turbulence profiles also allow us to estimate these fluxes by similarity.  This similarity is based on the structure of the atmospheric boundary layer.  The “Free” atmosphere is the portion of the atmosphere that is not affected by the motion of, or the activities on, the surface.  The inversion layer is the slip layer that transitions between the ABL and the free atmosphere.  Below, there are two general divisions, the outer/defect layer and the inner/surface layer.  Below the surface layer is the where the individual roughness elements play a great role.  It is in the inner/surface layer that we can apply most similarity concepts, that is, that the transfer of one fluid property occurs similarly to that of another property.  Formally, this is called Monin-Obukhov similarity, named after some of the initial discoverers.  From this, we get most turbulent similarity.  This is empirical.
@@ -69,7 +71,7 @@ This became:
 
 where $\gamma$ is the psychrometric constant and the subscripts $s$ and $a$ refer to the surface and air measurements, respectively.  
 
-### 8.2a Penman Approach  
+#### 8.3 Penman Approach  
 Penman (1948) assumed that $\Delta$, the slope of the saturation water vapor pressure curve with respect to temperature could then be substituted into the above formulation to yield: 
 
 \begin{equation}
@@ -82,30 +84,48 @@ This uses the common shorthand of $Q_{ne} = \frac{R_n - G}{L_e}$.
 E = \frac{\Delta}{\Delta + \gamma} Q_{ne} + \frac{\gamma}{\Delta + \gamma} E_A  
 \end{equation}  
 
+where $E_A$ is called the drying power of the wind.
+
 \begin{equation}
 E_A = f_e (\bar{u_r})(e^{\star}_s - e^{\star}_a)  
 \end{equation}  
+
+where $f_e$ is the wind function and defined for a height of $h=2m$, thus $u_2$.  
 
 \begin{equation}
 f_e(\bar{u_2}) = 0.26 (1 + 0.54 \bar{u_2})  
 \end{equation}  
 
-where $u_2$ is the wind speed at $h=2m$.  
+If the wind speed is $u = 0$, the wind function and entire drying power of the wind go to $E_A = 0$.  This formulation is called the equilibrium evaporation.
 
-Further investigation has shown potential evaporation to be a simplification of 
+### 8.4 Other Evaporations
 
-### 8.3 Catchment Method  
-Based on the water budget method, the catchment method is applicable over periods where you can assume storage to be zero; this is typically a year.  Thus, for a watershed, the evaporation can be estimated by:  
+Further investigation has shown potential evaporation to be a simplification of Penman's formulation.  Priestley and Taylor (1972) determined that the equilibrium evaporation could be augmented to account for the evaporation from short active vegetation with $\alpha = 1.26$.  
+
+\begin{equation}
+E = \alpha \frac{\Delta}{\Delta + \gamma} Q_{ne}  
+\end{equation}  
+
+### 8.5 Catchment Method  
+Based on the water budget method, the catchment method is applicable over periods where you can assume storage to be zero; this is typically a year.  Thus, for a watershed, the evaporation can be estimated by solving:  
 
 \begin{equation}
 P-G_{out}+G_{in}+Q_{in}-Q_{out}-ET=\Delta S \approx 0
 \end{equation}
 
-Given that for a watershed, $Q_{in} = 0$, and for no storage and over this period, $G_{in} = G_{out}$.  
+The typical application is to a watershed so that, $Q_{in} = 0$, and applied over a year, typically a hydrologic year, so that there is no storage, $\Delta S  = 0$ and $G_{in} = G_{out}$.  
 
 \begin{equation}
 E = P - Q_{out}  
 \end{equation}  
 
-### 8.4 Evaporation Pan  
-and lysimeter
+### 8.6 Evaporation Pan  
+One of the most straightforward measurements of evaporation is the evaporation pan.  This is a pan of water and the operator measures the amount of water that evaporates from it.  Typically, measurements are made every morning.  A lysimeter is a similar apparatus but with soil and sometimes vegetation.  
+
+### 8.7 Complementary Relationship  
+Over the past 70 years, precipitation globally has increased but evaporation measured by pans has decreased.  This presented, at the turn of the century, a paradox.  Based on the development from Bouchet (1962, 1963), Brutsaert and Parlange (1998) asserted that the so-called evaporation paradox was not a paradox at all.  In fact, it was perfectly expected that in a wetter world, the evaporation measured by pans would decrease.  Consider this thought experiment, you have a wet, vegetated landscape with a pan measuring evaporation.  Now consider the actions of the pan as the vegetation goes away and the soil dries.  The pan will still evaporate; in fact, it will accelerate as there is excess energy at the surface.  
+
+The evidence that supports this is at the catchment level with a catchment water balance and even at the daily time scale with data from EBBR.  
+
+![Pan evaporation (pink circles) and actual evaporation (blue triangles) as measured by energy budget with Bowen ratio station in the Atmospheric Radiation Measurement project, Southern Great Plains site.](figures/complementary_relationship.jpg)
+
