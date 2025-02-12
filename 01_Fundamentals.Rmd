@@ -49,7 +49,9 @@ This gives us four variables with three (Length, Time, and Mass) dimensions.  By
 \mathrm{Re} = \frac{\rho U L}{\mu} = \frac{U L}{\nu}
 \end{equation}
 
-It can be observed that the dynamic viscosity divided by the density gives the kinematic viscosity, which is used above.  Another example of dimensional analysis is the Bond Number, which considers capillary forces.  In the analysis of capillary forces, these are usually balanced by gravity.  We identify the following variables:  
+It can be observed that the dynamic viscosity divided by the density gives the kinematic viscosity, which is used above.  
+
+Another example of dimensional analysis is the Bond Number, which considers capillary forces.  In the analysis of capillary forces, these are usually balanced by gravity.  We identify the following variables:  
 
 |Variable|Dimensions|Description|
 |---|---|---|
@@ -82,7 +84,7 @@ The water, on the surface of the Earth, is split between fresh and salt water, f
 \mathrm{Inflow} - \mathrm{Outflow} = \Delta \mathrm{Storage} = P-G_{out}+G_{in}+Q_{in}-Q_{out}-ET=\Delta S \approx 0
 \end{equation}
 
-In a control volume, where precipitation, $P$, groundwater flow, **e.g.**, a losing or gaining stream, $G$ if it is along the border of the control volume, surface water flow, $Q$, where the subscripts in and out are relative to the control volume, total net evapotranspiration, $ET$, and storage, $\Delta S$, which is usually taken as zero, but depends on your control volume.  A net, long term deficit could indicate the degredation of a resource.  
+In a control volume, where precipitation, $P$, groundwater flow, e.g., a losing or gaining stream, $G$ if it is along the border of the control volume, surface water flow, $Q$, where the subscripts in and out are relative to the control volume, total net evapotranspiration, $ET$, and storage, $\Delta S$, which is usually taken as zero, but depends on your control volume.  A net, long term deficit could indicate the degradation of a resource.  There are also smaller-scale applications of the control volume and water balance.  Sometimes these are a watershed, but sometimes the control volume is a river fetch or single lake.  This method will work as long as you apply the control volume carefully, and account for storage changes or use a period that allows storage changes to be zero, $\Delta S = 0$.  
 
 We can use the water balance to estimate parameters of our system.  The selection of our system is very important, as not all systems will contain the same inputs and outputs (at least of similar magnitudes).  One standard system is the river basin (that is, one that drains to the ocean).  In general, such a system has an input of precipitation (snow, rain, etc.) and outputs of evapotranspiration (defined below) and river flow into the ocean.  Generally speaking, the groundwater flow will return to the river because of the hydrostatic pressure of the ocean (although this is not a strict rule).  This means that we can measure the evaporation based on the precipitation and river discharge, as was done by [Hobbins et al. (2004)](https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2004GL019846).  
 
