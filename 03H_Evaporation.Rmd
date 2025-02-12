@@ -17,4 +17,5 @@ library(broom)
 ```
 
 
+3. Given the data for a summer day in a temperate climate, air temperature $T_a = 17.94\ ^{\circ} C$, relative humidity $66%$, incoming short-wave radiation $R_s = 226.79\ W\ m^{-2}$.  Calculate net radiation in $W\ m^{-2}$ for a surface covered with active, short vegetation (assume an albedo of $\alpha = 0.2$ and surface emissivity of $\varepsilon_s = 0.97$).  Assume the air temperature is equal to the surface temperature. 
 5. Calculate the evaporation by Penman’s equation for a net radiation of 101 W m-2 and the same other parameters as question #1.

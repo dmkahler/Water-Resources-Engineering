@@ -55,10 +55,57 @@ $R_n-G=L_eE+Bo L_eE=(1+Bo) L_eE$.  Also, it is most convenient to calculate the 
 E = \frac{(1 - c_R) \frac{R_n}{L_e}}{1 + \mathrm{Bo}}  
 \end{equation}  
 
-How do we measure the Bowen Ratio?  
+How do we measure the Bowen Ratio?  Based on similarity, we can combine the above profile equations, which depend on understanding the (transient) structure of the boundary layer every time a measurement is made, to form:  
+
+\begin{equation}
+\mathrm{Bo} = \frac{c_p (\bar{\theta_1} - \bar{\theta_2})}{L_e (\bar{q_1} - \bar{q_2})}  
+\end{equation}  
+
+This became: 
+
+\begin{equation}
+\mathrm{Bo} = \gamma \frac{(\bar{T_s} - \bar{T_a})}{L_e (\bar{e_s} - \bar{e_a})}  
+\end{equation}  
+
+where $\gamma$ is the psychrometric constant and the subscripts $s$ and $a$ refer to the surface and air measurements, respectively.  
+
+### 8.2a Penman Approach  
+Penman (1948) assumed that $\Delta$, the slope of the saturation water vapor pressure curve with respect to temperature could then be substituted into the above formulation to yield: 
+
+\begin{equation}
+\Delta = \frac{e^{\star}_s - e^{\star}_a}{\bar{T_s} - \bar{T_a}}  
+\end{equation}  
+
+This uses the common shorthand of $Q_{ne} = \frac{R_n - G}{L_e}$.  
+
+\begin{equation}
+E = \frac{\Delta}{\Delta + \gamma} Q_{ne} + \frac{\gamma}{\Delta + \gamma} E_A  
+\end{equation}  
+
+\begin{equation}
+E_A = f_e (\bar{u_r})(e^{\star}_s - e^{\star}_a)  
+\end{equation}  
+
+\begin{equation}
+f_e(\bar{u_2}) = 0.26 (1 + 0.54 \bar{u_2})  
+\end{equation}  
+
+where $u_2$ is the wind speed at $h=2m$.  
+
+Further investigation has shown potential evaporation to be a simplification of 
 
 ### 8.3 Catchment Method  
+Based on the water budget method, the catchment method is applicable over periods where you can assume storage to be zero; this is typically a year.  Thus, for a watershed, the evaporation can be estimated by:  
 
+\begin{equation}
+P-G_{out}+G_{in}+Q_{in}-Q_{out}-ET=\Delta S \approx 0
+\end{equation}
+
+Given that for a watershed, $Q_{in} = 0$, and for no storage and over this period, $G_{in} = G_{out}$.  
+
+\begin{equation}
+E = P - Q_{out}  
+\end{equation}  
 
 ### 8.4 Evaporation Pan  
 and lysimeter

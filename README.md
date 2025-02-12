@@ -15,8 +15,12 @@
 
 ## Evaporation  
 - Notes  
-- Figures  
+- [Figures](https://duq.box.com/s/pxd5xjb5o61yqlzfclyqs1w51ni6r4y6)  
 - [Energy Flux Example](https://duq.box.com/s/5p726wtk68fv1e7r5xt3phdv038l34lc), also see "energy example" folder  
 - Homework  
 
 ## Precipitation  
+- Notes  
+- Figures  
+- Frequency Analysis: see "precip" folder  
+
