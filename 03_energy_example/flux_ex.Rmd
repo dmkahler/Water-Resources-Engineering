@@ -40,8 +40,8 @@ R_{n} = G + H + L_{e}E
 
 Recall, it is most convenient to calculate the ground heat flux as a fraction of the net radiation (Fuchs and Hadas, 1972).  Empirically, the ground heat flux can be related to the net radiation by: $G = c_R R_n$ where $c_R$ is found by experiment:
 
-|Surface |$c_R$ |Citation |
-|---|---|
+|Surface |$c_R$ |Citation |  
+|---|---|---|
 |Bare soil |0.3 |Fuchs and Hadas, 1972 |
 |Maize |0.2 |Parrier, 1975 |
 |Grass |0.1 |Brutsaert, 1982 |  
