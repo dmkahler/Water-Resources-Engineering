@@ -16,7 +16,7 @@
 ## Evaporation  
 - Notes  
 - Figures  
-- Energy Flux Example, also see "energy example" folder  
+- [Energy Flux Example](https://duq.box.com/s/5p726wtk68fv1e7r5xt3phdv038l34lc), also see "energy example" folder  
 - Homework  
 
 ## Precipitation  
