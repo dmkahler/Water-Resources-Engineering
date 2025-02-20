@@ -1,0 +1,19 @@
+--
+title: "Rivers"
+author: "David M. Kahler"
+output: pdf_document
+header-includes: 
+      \usepackage{amsmath}
+---
+**CEES 351: Water Resources Engineering**  
+**Duquesne University**  
+
+```{r include=FALSE}
+library(ggplot2)
+library(raster)
+library(rgdal)
+library(dplyr)
+library(broom)
+```
+
+
