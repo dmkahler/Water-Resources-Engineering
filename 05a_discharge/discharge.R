@@ -9,6 +9,11 @@ library(readr)
 library(lubridate)
 library(dplyr)
 library(ggplot2)
+library(latex2exp)
+library(devtools)
+install_github("LimpopoLab/hydrostats") # NEVER do this unless you know the origin of the code.
+library(hydrostats)
+library(e1071)
 
 x <- read_csv("05a_discharge/05a_discharge.csv", skip = 32)
 print(paste0("Site #: ", x$site[1]))
@@ -18,6 +23,7 @@ y <- x %>%
      mutate(dt = with_tz(mdy_hms(paste0(date, "T", time)), tz = "US/Eastern")) %>%
      select(dt, gage, Q)
 
+# plot one hydrologic year:
 z <- y %>%
      filter(dt > ymd_hms("2022-09-30T00:00:00")) %>%
      filter(dt < ymd_hms("2023-10-01T00:00:00"))
@@ -31,17 +37,31 @@ ggplot(z) +
      theme(axis.title = element_text(face = "plain", size = 14))
 # remember, this is 15-minute data; it should show just about everything.
 
+# Return Period
+# here, we will find the flood statistics for the river.
+hy <- array(NA, dim = nrow(y))
+for (i in 1:nrow(y)) {
+     hy[i] <- hyd.yr(y$dt[i]) # must be in a loop, hyd.yr is not compatible with dplyr.
+}
+y <- data.frame(y,hy)
+rm(hy)
+z <- y %>%
+     group_by(hy) %>%
+     summarize(mn = mean(Q, na.rm = TRUE), mx = max(Q, na.rm = TRUE)) %>%
+     mutate(LGmx = log(mx, base = 10))
+m <- mean(z$LGmx)
+s <- sd(z$LGmx)
+# c <- skewness(z$LGmx) # from: e1071
+c <- skew(z$LGmx) # from: hydrostats, there is a difference between methods.
 
-
-
-ggplot(z) +
-     geom_point(aes(x = Q, y = gage)) +
-     xlab(TeX('Discharge $(m^3/s)$')) +
-     ylab("Stage (m)") + 
-     theme(panel.background = element_rect(fill = "white", colour = "black")) + 
-     theme(aspect.ratio = 1) +
-     theme(axis.text = element_text(face = "plain", size = 14)) +
-     theme(axis.title = element_text(face = "plain", size = 14))
+## log-Pearson type III analysis
+# For this distribution, we use the skewness to determine the 
+# inverse CDF.
+T_R <- 50 # return period in years (in this case)
+Fx <- 1 - (1/T_R)
+v <- pt3(c,Fx)
+r <- (v * s) + m
+flood <- 10^r # this is the T_R flood level
 
 
 
