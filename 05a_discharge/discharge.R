@@ -63,6 +63,41 @@ v <- pt3(c,Fx)
 r <- (v * s) + m
 flood <- 10^r # this is the T_R flood level
 
+# Rating Curve
+z <- y %>%
+     filter(dt > ymd_hms("2023-09-30T00:00:00")) %>%
+     filter(dt < ymd_hms("2024-10-01T00:00:00")) %>%
+     filter(is.na(Q)==FALSE)
+ggplot(z) +
+     geom_point(aes(x = Q, y = gage)) +
+     scale_y_continuous(trans='log10') + scale_x_continuous(trans='log10') +
+     xlab(TeX('Discharge $(m^3/s)$')) +
+     ylab("Stage (m)") + 
+     theme(panel.background = element_rect(fill = "white", colour = "black")) + 
+     theme(aspect.ratio = 1) +
+     theme(axis.text = element_text(face = "plain", size = 14)) +
+     theme(axis.title = element_text(face = "plain", size = 14))
+
+# For a rating curve, simple regression lines don't cut it.
+# We prepare the data for the Python script from USGS.
+# Since data validation occurs every month, we will compare the data from September 2024:
+zMod <- z %>%
+     filter(dt >= ymd_hms("2024-09-01T00:00:00")) %>%
+     filter(dt <= ymd_hms("2024-09-30T00:00:00")) %>%
+     filter(gage < 0.9) %>%
+     filter(Q < 0.9) %>%
+     mutate(LOGgage = log(gage, base = 10)) %>%
+     mutate(logQ = log(Q, base = 10))
+ggplot(zMod) +
+     geom_point(aes(x = Q, y = gage)) +
+     scale_y_continuous(trans='log10') + scale_x_continuous(trans='log10') +
+     xlab(TeX('Discharge $(m^3/s)$')) +
+     ylab("Stage (m)") + 
+     theme(panel.background = element_rect(fill = "white", colour = "black")) + 
+     theme(aspect.ratio = 1) +
+     theme(axis.text = element_text(face = "plain", size = 14)) +
+     theme(axis.title = element_text(face = "plain", size = 14))
+write_csv(zMod, "05a_discharge/05a_sept2024.csv")
 
 
 
