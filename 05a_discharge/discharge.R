@@ -65,7 +65,7 @@ flood <- 10^r # this is the T_R flood level
 
 # Rating Curve
 z <- y %>%
-     filter(dt > ymd_hms("2023-09-30T00:00:00")) %>%
+     filter(dt >= ymd_hms("2023-10-01T00:00:00")) %>%
      filter(dt < ymd_hms("2024-10-01T00:00:00")) %>%
      filter(is.na(Q)==FALSE)
 ggplot(z) +
