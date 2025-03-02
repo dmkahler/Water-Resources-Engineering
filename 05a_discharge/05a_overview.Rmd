@@ -1,0 +1,31 @@
+--
+title: "River Discharge Example"
+author: "David M. Kahler"
+output: pdf_document
+header-includes: 
+      \usepackage{amsmath}
+---
+**CEES 351: Water Resources Engineering**  
+**Duquesne University**  
+
+## Overview  
+This example, numbered *5a*, includes three elements:
+1. Return Period  
+2. Rating Curve Computation  
+3. Watershed analysis  
+
+The example uses the Little Pine Creek watershed in Pittsburgh, PA.  USGS gage [03049800](https://waterdata.usgs.gov/monitoring-location/03049800/) was used for the historic data and rating curve.  The data from this 
+
+## Return Period  
+The return period is based on the data from Little Pine Creek, which is included in this repository subdirectory: 05a_discharge.csv.  Adjust 05a_discharge.R to perform the return period calculations.  
+
+## Rating Curve  
+The rating curve is calculated based on a subset of the historic data.  The following codes should be run in order:  
+1. 05a_rating_curve.R - this outputs 05a_sept2024.csv, an input for the next code  
+2. 05a_rating_curve.ipynb - the installations are noted in the notebook  
+3. 05a_compare.R - this will compare the result from the previous code with the USGS rating curve, also in this subdirectory  
+
+## Watershed Delineation  
+
+
+
