@@ -14,35 +14,48 @@ x <- x %>%
      select(-agency, -site, -gage_ft, -gage_qc, -discharge_ft_per_s, -discharge_qc) %>%
      mutate(dt = with_tz(mdy_hms(paste0(date, "T", time)), tz = "US/Eastern")) %>%
      select(dt, gage, Q) %>%
-     mutate(type = "Historical")
+     mutate(Type = "Historical")
 
 dataIN <- x %>%
      filter(dt >= ymd_hms("2024-09-01T00:00:00")) %>%
      filter(dt <= ymd_hms("2024-09-30T00:00:00")) %>%
      select(gage, Q) %>%
-     mutate(type = "Input Data")
+     mutate(Type = "Input Data")
 
-x <- select(x, c(gage, Q, type))
+x <- select(x, c(gage, Q, Type))
 
 y <- read_csv("05a_discharge/05a_rating_curve.csv", skip = 35)
 y <- y %>%
      mutate(gage = 0.3048 * Stage_ft, Q = 0.0929 * as.numeric(Discharge_ft3_s)) %>%
      select(gage, Q) %>%
-     mutate(type = "USGS Rating Curve")
+     mutate(Type = "USGS Rating Curve")
 
 z <- read_csv("05a_discharge/05a_rating_py.csv")
 z <- z %>%
      rename(gage = stage, Q = discharge) %>%
      select(gage, Q) %>%
-     mutate(type = "Calculated Rating Curve")
+     mutate(Type = "Calculated Rating Curve")
 
 all <- rbind(x, dataIN, y, z)
 
 ggplot(all) +
-     geom_point(aes(x = Q, y = gage, color = type))
+     geom_point(aes(x = Q, y = gage, color = Type)) +
+     labs(x = TeX('Discharge ($m^3/s$)'), y = "Stage (m)") +
+     theme(panel.background = element_rect(fill = "white", colour = "black")) +
+     theme(legend.background = element_blank()) +
+     theme(aspect.ratio = 1) +
+     theme(axis.text = element_text(face = "plain", size = 14), axis.title = element_text(face = "plain", size = 14)) +
+     theme(legend.text = element_text(face = "plain", size = 14), legend.title = element_text(face = "plain", size = 14))
 
 ggplot(all) +
-     geom_point(aes(x = Q, y = gage, color = type)) +
+     geom_point(aes(x = Q, y = gage, color = Type)) +
      xlim(c(0,1)) +
-     ylim(c(0,1))
+     ylim(c(0,1)) +
+     labs(x = TeX('Discharge ($m^3/s$)'), y = "Stage (m)") +
+     theme(panel.background = element_rect(fill = "white", colour = "black")) +
+     theme(legend.background = element_blank()) +
+     theme(aspect.ratio = 1) +
+     theme(axis.text = element_text(face = "plain", size = 14), axis.title = element_text(face = "plain", size = 14)) +
+     theme(legend.text = element_text(face = "plain", size = 14), legend.title = element_text(face = "plain", size = 14))
+
 
