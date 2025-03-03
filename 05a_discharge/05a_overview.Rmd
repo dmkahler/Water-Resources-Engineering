@@ -1,4 +1,4 @@
---
+---
 title: "River Discharge Example"
 author: "David M. Kahler"
 output: pdf_document
@@ -7,6 +7,10 @@ header-includes:
 ---
 **CEES 351: Water Resources Engineering**  
 **Duquesne University**  
+
+```{r include=FALSE}
+library(broom)
+```
 
 ## Overview  
 This example, numbered *5a*, includes three elements:
@@ -25,7 +29,11 @@ The rating curve is calculated based on a subset of the historic data.  The foll
 2. 05a_rating_curve.ipynb - the installations are noted in the notebook  
 3. 05a_compare.R - this will compare the result from the previous code with the USGS rating curve, also in this subdirectory  
 
+![Comparison of the stage-to-discharge relationships](compare_zoom.eps)
+
 ## Watershed Delineation  
+Watershed delineation is done with geographical information systems (GIS).  [QGIS](https://qgis.org/) is an open-source GIS application for Windows, MacOS, and others.  The steps to delineate the watershed are explained a [video](https://youtu.be/F94SdRL80Rs).  
 
+Note: the SAGA processing toolbox is no longer available through the QGIS core setup.  There are a few options to install SAGA: install a previous version of QGIS (e.g., 3.28), or install the plugin at installation.  Please see the instructor for assistance.  
 
-
+![Final wetland delineation](map.png)
