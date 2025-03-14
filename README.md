@@ -17,12 +17,13 @@
 - [Notes](https://duq.box.com/s/1t3l6zhrt4hfcldbxln9wbmgs0wdgk9o)    
 - [Figures](https://duq.box.com/s/pxd5xjb5o61yqlzfclyqs1w51ni6r4y6)  
 - [Energy Flux Example](https://duq.box.com/s/5p726wtk68fv1e7r5xt3phdv038l34lc), also see "energy example" folder  
-- Homework  
+- [Homework](https://duq.box.com/s/yyozkgl8xn0vwmr7hn5xfyds0i6cc73z), [data referenced](https://duq.box.com/s/91ssfic4fr46s3fs68v33kfkq3af4gcl)  
 
 ## Precipitation  
-- Notes  
-- Figures  
+- [Notes](https://duq.box.com/s/waucmt572jkl5yjp87bhr89dr5mty0u5)  
+- [Figures](https://duq.box.com/s/c29mtsh6bp20by65tro3bhvzt409j4pa)  
 - Frequency Analysis: see "precip" folder  
+- [Homework](https://duq.box.com/s/vnvgnqycgk6o0rkk8wrusc7deqsvli7f)  
 
 ## Rivers  
 - Notes
