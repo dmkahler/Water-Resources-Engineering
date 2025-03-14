@@ -36,4 +36,4 @@ Watershed delineation is done with geographical information systems (GIS).  [QGI
 
 Note: the SAGA processing toolbox is no longer available through the QGIS core setup.  There are a few options to install SAGA: install a previous version of QGIS (e.g., 3.28), or install the plugin at installation.  Please see the instructor for assistance.  
 
-![Final wetland delineation](map.png)
+![Final watershed delineation](map.png)
