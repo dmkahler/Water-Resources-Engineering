@@ -16,4 +16,90 @@ library(dplyr)
 library(broom)
 ```
 
+## Surface Water: Rivers  
+Surface water is critically important for most water use. The vast majority of agricultural and domestic water services draw from surface water resources. Measuring these resources is typically a governmental responsibility.  In the United States, the USGS is primarily responsible for monitoring streams; although, the USACE also monitors navigable water and reservoirs. Finally, the USBR manages certain resources in the American West.  
+
+### Flow Estimation: Methematical Formulations  
+In hydrology, the most common method to estimate the flow in a river is with Manning’s formula. Manning’s formula is empirical; however, it has roots in the energy equation. Let us consider a uniform segment of a channel.  
+
+![A cutaway of a segment of river. The forces are identified for the imaginary channel section.](figures/force_balance.pdf) 
+
+The sum of the forces in the direction coincident with the flow reduces to:
+
+\begin{equation}
+F_u - F_d - \tau P L + \gamma L A \sin{\phi} = 0  
+\end{equation}  
+
+where $F_u$ and $F_d$ are the hydrostatic forces at the upstream and downstream ends of the channel segment, respectively, $\tau$ is the shear stress on the bottom of the channel, $L$ is the length of the segment, $P$ is the perimeter, $A$ is the cross- sectional area, $\gamma = \rho g$ is the specific weight of water, and $\phi$ is the bed slope angle. Since this segment is considered uniform (an important assumption), the hydrostatic forces are equal. Since most bed slopes are very small, we take the sine of the slope to be equal to the slope, $S_0$ (recall, $\sin{\phi} = \frac{\mathrm{opposite}}{\mathrm{hypotonuse}}$, $\therefore \mathrm{hypotonuse} \approx \mathrm{adjacent}$.  
+
+\begin{equation}
+\tau = \frac{\gamma A L S_0}{P L}  
+\end{equation}  
+
+The hydraulic radius is defined as the area divided by the wetted perimeter $R_H = \frac{A}{P_w}$. The stress should be equal to the dynamic pressure, $\tau = \frac{\rho v^2}{2}$. This is an equality that is common in hydraulics.  
+
+\begin{equation}
+k_1 \rho \frac{v^2}{2} = \gamma R_H S_0  
+\end{equation}  
+
+where $k_1$ is a proportionality constant, $\rho$ is the fluid density, and $v$ is the velocity.  In an alternative derivation, the Darcy-Weisbach equation is modified (and the square root and several elements are preserved):
+
+\begin{equation}
+v = \sqrt{\frac{8 g}{f} R_H S_0}  
+\end{equation}  
+
+where $f$ is found by the Moody diagram.  Chezy defined a parameter, $C$, and stated:
+
+\begin{equation}
+v = C \sqrt{R_H S_0}  
+\end{equation}  
+
+where $C$ is the Chezy coefficient, subsuming the $f$.  Manning set a fixed $C$ and wrote:
+
+\begin{equation}
+v = \frac{R_H^{\frac{2}{3}} S_0^{\frac{1}{2}}}{n}  
+\end{equation}  
+
+where $n$ is the Manning roughness coefficient, or Manning’s $n$.  
+
+Current exploration into the validity and applicabliity of these formulations are:  
+- Bjerklie, D. M., Dingman, S. L., & Bolster, C. H. (2005). Comparison of constitutive flow resistance equations based on the Manning and Chezy equations applied to natural rivers. Water Resources Research, 41(11). https://doi.org/10.1029/2004WR003776  
+- Katul, G., Wiberg, P., Albertson, J., & Hornberger, G. (2002). A mixing layer theory for flow resistance in shallow streams. Water Resources Research, 38(11), 32-1-32–8. https://doi.org/10.1029/2001WR000817  
+
+Manning’S roughness coefficient values for typical channels.  Data from Chow, V. T., Maidment, D. R., and Mays, L. W. (1988)  Applied Hydrology.  New York: McGraw-Hill. 572 p.  
+
+|Channel Lining | n |  
+|---|---|  
+|Concrete |0.012 |  
+|Gravel with concrete sides |0.020 |  
+|Gravel with riprap sides |0.033 |  
+|Natural channel, straight, little vegetation 0.030 |  
+|Natural channel, winding, with weeds |0.050 |  
+|Natural channel, winding, with brush and timber |0.100 |  
+|Flood plains in pasture |0.035 |  
+|Flood plains in dense brush |0.070 |  
+
+These coefficients are valid for SI units. This substitution is only valid for fully turbulent flows.  
+
+\begin{equation}
+1.1 \times 10^{-13} \leq n^6 \sqrt{R_H S_0}  
+\end{equation}  
+
+### Flow Measurement  
+There are several ways to measure discharge, also called flow, streamflow, or flow rate. Sometimes, this quantity is also called stage or gauge/gage (conventional spelling/preferred United States Geological Survey spelling – both are correct); however, gage and stage actually refer to the height of a river.  
+Ask the participants to provide ways to measure discharge, perhaps without additional instrumentation. What are some of those ways? Such a list might include:  
+- Placing a tracer (leaf, twig) on the surface and timing the travel along a measured distance  
+- Measurement of water velocity with a current meter and numerical integration  
+- Acoustic Doppler Current Profiler (ADCP)  
+- Weir, either permanent or temporary  
+
+Without any equipment, you can estimate discharge by getting a feel for the speed of the water. Place a leaf or small stick in the river (as long as it is safe to do so and you will not interfere with anyone else’s use of the water). Remember, if the tracer is in the center, you will not be measuring the average velocity, but the maximum velocity; up to twice the average velocity.  
+With a current meter, the operator sets up a measuring tape across the river called a tag line. This must be as level as possible because if it is sagging significantly, the position measurement will be further along than the actual position. A rope strung tightly can help to keep the measuring tape straight, as the tape should not be tensioned too much. Measuring tapes should be made out of fiberglass as cloth ones stretch and fatigue and metal ones change length with temperature. Once measured, the discharge can be estimated through numerical integration of the measurements across the cross-section.  
+The United States Geological Survey method uses rectangles with the average velocity measured in the center of the rectangle, typically called the mid-section method. The ISO method constructs trapezoids to represent the cross- sectional area of the river, typically called mean-depth. The velocity assigned to each trapezoid is the average of the velocity measured at each side of the trapezoid. The numerical integration differences are analogous to the rectangular rule or the trapezoid rule from Riemann sums in calculus.  
+The acoustic Doppler current profiler is used for larger rivers where it is difficult to get in the water. They are typically small boats that have the sensors mounted on the hull. An ADCP performs a similar measurement to that of a current meter; however, because it does it in more places, the on-board software usually integrates the velocity across the cross-sectional area automatically.  
+
+### Weirs  
+
+
+
 

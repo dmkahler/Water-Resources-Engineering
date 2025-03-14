@@ -1,0 +1,101 @@
+---
+title: "Precipitation"
+author: "David M. Kahler"
+output: pdf_document
+header-includes: 
+      \usepackage{amsmath}
+---
+**CEES 351: Water Resources Engineering**  
+**Duquesne University**  
+
+```{r include=FALSE}
+library(ggplot2)
+library(dplyr)
+library(broom)
+library(latex2exp)
+```
+
+Precipitation is considered the main flux in hydrology.  Mostly, precipitation is where we, as researchers, begin our analysis and most consumers consider it the “source” of water.  Precipitation is often how we define climate regions and define water stress.
+Evapotranspiration (and sublimation) causes vapor to accumulate in the atmosphere.  Clouds form around cloud condensation nuclei.  Clouds are part vapor, part liquid (droplets), and can include some solid (ice).  Density and saturation control the release of precipitation from clouds, whose exact formation is not fully understood.   
+Discuss the theory of how rain is formed and the “condensation nuclei” (not really how rain is formed), which is an area of current research.
+The [World Meteorological Organization](https://wmo.int/wmo-community/meteoterm) (WMO) defined a *water year* as "Continuous 12-month period selected in such a way that overall changes in storage are minimal so that carry-over is reduced to a minimum."  
+
+## Monsoonal v. temperate patterns
+Wet v. dry seasons.  Mainly driven by low-pressure induced rain from hot land surface.
+
+## ENSO: El Nino Southern Oscillation
+This refers to the sea surface temperature in the Pacific Ocean.  The western Pacific Ocean is typically warmer than the east.  The difference in the two regions drives the Southern Oscillation and is greatest in September and October.  Walker Circulation, as it is called, refers to the convection current induced by this temperature gradient; namely, east-to-west on the surface and west-to-east above the surface.  El Nino refers to warmer average temperatures and La Nina refers to cooler average temperatures from the International Dateline to the west coast of [South] America.  Southern Oscillation refers to the pressure: a negative SO coincides with El Nino and high pressure over Indonesia and a positive SO coincides with La Nina and low pressure over Indonesia.  The Southern Oscillation Index is the difference in air pressure anomaly between Tahiti and Darwin, Australia.
+
+## Instruments  
+- Rain gage
+- Weighing, volumetric
+- Float
+- Tipping bucket
+- Rain gage correction factors
+
+## Areal averages
+**Arithmetic mean**: all gages are weighted equally and the average is assigned to the area in question.
+**Reciprocal distance**: the area is broken up into elements (i.e., grids), then each element is adjusted by the inverse distance to the gage.  
+
+\begin{equation}
+\bar{P} = \sum\limits_{j}{} \frac{A_j}{A} \left( \frac{\sum\limits_{i}{} p_i r_{ij}^{-b}}{\sum\limits_{i}{} r_{ij}^{-b}} \right)  
+\end{equation}  
+
+where $p_i$ are the precipitation gages, $R_{ij}$ is the distance from the precipitation gage, $p_i$, to the areal element with index, $j$, the exponent, $b$, is typically unity or two, and the area of each areal element, $A_j$, and the area of the full catchment, $A$.  For example, for a single subarea, $j$, for $b=2$, we have:  
+
+\begin{equation}
+= \frac{\frac{p_1}{r_{1j}^{2}}+\frac{p_2}{r_{2j}^{2}}+\frac{p_3}{r_{3j}^{2}}+\frac{p_4}{r_{4j}^{2}}+\ldots}{\frac{1}{r_{1j}^{2}}+\frac{1}{r_{2j}^{2}}+\frac{1}{r_{3j}^{2}}+\frac{1}{r_{4j}^{2}}+\ldots}  
+\end{equation}  
+
+Thiessen polygons: the gages are mapped and each connector is bisected. The bisections form various polygons that are assigned the value of the respective gage. To obtain a total precipitation input, each gage value is weighted by the area of the polygon.
+
+## Intensity and Duration  
+The relationship is given by the Meyer equation:  
+
+\begin{equation}
+P = K_p \frac{T_R^a}{(D+b)^c}  
+\end{equation}  
+
+where $P$ is the intensity [$L/T$] of precipitation, $D$ is the duration [$T$], $T_R$ is the return period [$T^{-1}$], and K [$L$], a, b [$T$], and c, are the parameters that should be calibrated but in general:  
+- 0.15 < a < 0.3  
+- 5 < b < 10 minutes  
+- 0.6 < c < 0.8  
+
+And typically used for periods (durations) less than or equal to 24 hours.  For general use, $a = 0.2$ and $c = 0.7$, with $b$ neglected for times over an hour.  This formulation can be used for design flows.  Use caution with the units, the length scale of $K_p$ and the time scale or $b$ and $D$ make up the rate of $P$.
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+a <- 0.2
+b <- 0.19
+c <- 0.79
+k1 <- 40
+D <- c(seq(from=0.1, to=100, by=0.1)) # hours
+tr <- c(2, 5, 10, 25, 50, 100)
+num <- array(NA, dim = (length(D)*length(tr)))
+`Duration` <- array(NA, dim = (length(D)*length(tr)))
+`Intensity` <- array(NA, dim = (length(D)*length(tr)))
+T_R <- array(NA, dim = (length(D)*length(tr)))
+for (i in 1:length(tr)) {
+     for (j in 1:length(D)) {
+          k <- (i-1)*(length(D))+j
+          num[k] <- k
+          `Duration`[k] <- D[j]
+          `Intensity`[k] <- k1 * (tr[i])^a / ((D[j]+(b/60))^c)
+          T_R[k] <- tr[i]
+     }
+}
+T_R <- as.factor(T_R)
+rain <- data.frame(num, `Duration`, `Intensity`, T_R)
+rain <- rename(rain, `Return Period` = T_R)
+ggplot(rain) + 
+     geom_line(aes(x = `Duration`, y = `Intensity`, color = `Return Period`)) +
+     labs(x = TeX('Duration ($h$)'), y = TeX('Intensity ($mm\ h^{-1}$)')) +
+     scale_x_log10() + scale_y_log10() +
+     theme(panel.background = element_rect(fill = "white", colour = "black")) +
+     theme(legend.background = element_blank()) +
+     theme(aspect.ratio = 1) +
+     theme(axis.text = element_text(face = "plain", size = 14), axis.title = element_text(face = "plain", size = 14)) +
+     theme(legend.text = element_text(face = "plain", size = 14), legend.title = element_text(face = "plain", size = 14))
+```
+
+
+

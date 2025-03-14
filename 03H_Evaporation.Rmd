@@ -1,11 +1,11 @@
---
+---
 title: "Homework 3: Evaporation"
 author: "David M. Kahler"
 output: pdf_document
 header-includes: 
       \usepackage{amsmath}
 ---
-**CEES 351: Water Resources Engineering**  
+**CIVE 351: Water Resources Engineering**  
 **Duquesne University**  
 
 ```{r include=FALSE}
@@ -16,6 +16,11 @@ library(dplyr)
 library(broom)
 ```
 
+1. Measurements of water-balance components have been made for a one-year period on a lake with a surface area of $A = 4.2\ km^2$ and a drainage basin of $52.1\ km^2$ (including the lake), with the following results: precipitation, $P = 1083\ mm$; inflow, $Q_{in} = 2.33 \times 10^{7}\ m^3$; groundwater input, $GW_{in} = 2.2 \times 10^{5}\ m^3$; groundwater outflow, $GW_{out} = 0.6 \times 10^{5}\ m^3$; and outflow, $Q_{out} = 2.70 \times 10^{7}\ m^3$.  Additionally, the lake's surface elevation at the end of the year was $\Delta h = 108\ mm$ higher than at the beginning (assume vertical edges).  What is the water-balance estimate of the lake evaporation for the year?  
+2. In the energy flux example, we analyzed energy fluxes from 2021 August 01 from the Department of Energy's [Atmospheric Radiation Measurement](https://arm.gov/) (ARM) station at Cement, OK, USA.  The average net radiation for the day was $R_n = 152.1\ W\ m^{-2}$ and the actual evaporation measured by energy budget with Bowen ratio was $L_eE = 72.8\ W\ m^{-2}$.  Compare the pan evaporation [data](https://duq.box.com/s/91ssfic4fr46s3fs68v33kfkq3af4gcl) from the National Oceanic and Atmospheric Administration's [National Centers for Environmental Information](https://www.ncdc.noaa.gov/cdo-web/) *Climate Data Online*.  
+3. Estimate the evaporation by Penman’s equation, equilibrium evaporation, potential evaporation (i.e., Priestley and Taylor) for the following parameters:  
+- Net radiation, $R_n = 101\ W\ m^{-2}$  
+- Air temperature $T_a = 16.85\ ^{\circ} C$  
+- Relative humidity $r = 0.66$  
+- Wind speed $u_2 = 2.3\ m/s$  
 
-3. Given the data for a summer day in a temperate climate, air temperature $T_a = 17.94\ ^{\circ} C$, relative humidity $66%$, incoming short-wave radiation $R_s = 226.79\ W\ m^{-2}$.  Calculate net radiation in $W\ m^{-2}$ for a surface covered with active, short vegetation (assume an albedo of $\alpha = 0.2$ and surface emissivity of $\varepsilon_s = 0.97$).  Assume the air temperature is equal to the surface temperature. 
-5. Calculate the evaporation by Penman’s equation for a net radiation of 101 W m-2 and the same other parameters as question #1.
