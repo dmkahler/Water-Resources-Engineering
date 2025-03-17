@@ -20,7 +20,9 @@ library(broom)
 2. In the energy flux example, we analyzed energy fluxes from 2021 August 01 from the Department of Energy's [Atmospheric Radiation Measurement](https://arm.gov/) (ARM) station at Cement, OK, USA.  The average net radiation for the day was $R_n = 152.1\ W\ m^{-2}$ and the actual evaporation measured by energy budget with Bowen ratio was $L_eE = 72.8\ W\ m^{-2}$.  Compare the pan evaporation [data](https://duq.box.com/s/91ssfic4fr46s3fs68v33kfkq3af4gcl) from the National Oceanic and Atmospheric Administration's [National Centers for Environmental Information](https://www.ncdc.noaa.gov/cdo-web/) *Climate Data Online*.  
 3. Estimate the evaporation by Penman’s equation, equilibrium evaporation, potential evaporation (i.e., Priestley and Taylor) for the following parameters:  
 - Net radiation, $R_n = 101\ W\ m^{-2}$  
-- Air temperature $T_a = 16.85\ ^{\circ} C$  
-- Relative humidity $r = 0.66$  
-- Wind speed $u_2 = 2.3\ m/s$  
+- Ground heat flux, $G = c_R\ R_n$, where $c_R = 0.1$  
+- Air temperature, $T_a = 16.85\ ^{\circ} C$  
+- Surface temperature, $T_s  = 17.85\ ^{\circ} C$  
+- Relative humidity, $r = 0.66$  
+- Wind speed, $u_2 = 2.3\ m/s$  
 
