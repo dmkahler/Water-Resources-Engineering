@@ -22,7 +22,8 @@
 ## Precipitation  
 - [Notes](https://duq.box.com/s/waucmt572jkl5yjp87bhr89dr5mty0u5)  
 - [Figures](https://duq.box.com/s/c29mtsh6bp20by65tro3bhvzt409j4pa)  
-- Frequency Analysis: see "precip" folder  
+- Frequency Analysis: see *precip_frequency_analysis* folder  
+- Thiessan Polygons: see *Thiessan_Polygons* folder  
 - [Homework](https://duq.box.com/s/vnvgnqycgk6o0rkk8wrusc7deqsvli7f)  
 
 ## Rivers  
