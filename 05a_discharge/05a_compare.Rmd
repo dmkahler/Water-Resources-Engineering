@@ -11,7 +11,7 @@ header-includes:
 ## Comparison  
 This document compares output from USGS python script and USGS published rating curve for Little Pine Creek.
 
-```{r warning=FALSE, message=FALSE}
+```{r echo=FALSE, warning=FALSE, message=FALSE}
 library(readr)
 library(lubridate)
 library(dplyr)
@@ -53,7 +53,7 @@ all <- rbind(x, dataIN, y, z)
 
 
 
-```{r warning=FALSE, message=FALSE}
+```{r echo=FALSE, warning=FALSE, message=FALSE}
 ggplot(all) +
      geom_point(aes(x = Q, y = gage, color = Type)) +
      labs(x = TeX('Discharge ($m^3/s$)'), y = "Stage (m)") +
@@ -65,7 +65,7 @@ ggplot(all) +
 ```
 
 
-```{r warning=FALSE, message=FALSE}
+```{r echo=FALSE, warning=FALSE, message=FALSE}
 ggplot(all) +
      geom_point(aes(x = Q, y = gage, color = Type)) +
      xlim(c(0,1)) +

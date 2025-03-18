@@ -18,7 +18,7 @@ library(latex2exp)
 Precipitation is considered the main flux in hydrology.  Mostly, precipitation is where we, as researchers, begin our analysis and most consumers consider it the “source” of water.  Precipitation is often how we define climate regions and define water stress.
 Evapotranspiration (and sublimation) causes vapor to accumulate in the atmosphere.  Clouds form around cloud condensation nuclei.  Clouds are part vapor, part liquid (droplets), and can include some solid (ice).  Density and saturation control the release of precipitation from clouds, whose exact formation is not fully understood.   
 Discuss the theory of how rain is formed and the “condensation nuclei” (not really how rain is formed), which is an area of current research.
-The [World Meteorological Organization](https://wmo.int/wmo-community/meteoterm) (WMO) defined a *water year* as "Continuous 12-month period selected in such a way that overall changes in storage are minimal so that carry-over is reduced to a minimum."  
+The [World Meteorological Organization](https://wmo.int/wmo-community/meteoterm) (WMO) defined a *water year* as "Continuous 12-month period selected in such a way that overall changes in storage are minimal so that carry-over is reduced to a minimum."  The [USGS](https://water.usgs.gov/water-basics_glossary.html#W) defined a *water year* as 01 October to 30 September.  The [American Meteorological Society](https://glossary.ametsoc.org/wiki/Water_year) defined a *water year* in the northern hemisphere as 01 October to 30 September and in the southern hemisphere as 01 July to 30 June.  
 
 ## Monsoonal v. temperate patterns
 Wet v. dry seasons.  Mainly driven by low-pressure induced rain from hot land surface.

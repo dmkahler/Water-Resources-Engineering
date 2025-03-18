@@ -5,7 +5,7 @@ output: pdf_document
 header-includes: 
       \usepackage{amsmath}
 ---
-**CEES 351: Water Resources Engineering**  
+**CIVE 351: Water Resources Engineering**  
 **Duquesne University**  
 
 ```{r include=FALSE}
@@ -18,7 +18,7 @@ This example, numbered *5a*, includes three elements:
 2. Rating Curve Computation  
 3. Watershed analysis  
 
-The example uses the Little Pine Creek watershed in Pittsburgh, PA.  USGS gage [03049800](https://waterdata.usgs.gov/monitoring-location/03049800/) was used for the historic data and rating curve.  The data from this 
+The example uses the Little Pine Creek watershed in Pittsburgh, PA.  USGS gage [03049800](https://waterdata.usgs.gov/monitoring-location/03049800/) was used for the historic data and rating curve.  
 
 ## Return Period  
 The return period is based on the data from Little Pine Creek, which is included in this repository subdirectory: 05a_discharge.csv.  Adjust 05a_discharge.R to perform the return period calculations.  
