@@ -122,7 +122,7 @@ where the coefficients are given by:
 The slope of the vapor pressure curve, $\Delta = \frac{d e \ast}{d T}$, is given by the empirical relationship:  
 
 \begin{equation}
-\Delta = \frac{d e \ast}{d T} = \frac{373.15 e \ast}{T^2} (13.3185-3.952 tr - 1.9335 tr^2 - 0.5196 tr^3)  
+\Delta = \frac{d e \ast}{d T} = \frac{373.15 e \ast}{T^2} (13.3185-3.952 t_r - 1.9335 t_r^2 - 0.5196 t_r^3)  
 \end{equation}  
 
 where $t_r = 1 - \frac{373.15}{T}$ and all temperatures, $T$, are in the same unit, $K$.  The psychrometric constant is given by:
