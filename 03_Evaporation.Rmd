@@ -28,6 +28,46 @@ Types of evaporation:
 
 We usually lump evaporation and evapotranspiration together as ET.  Some studies show that transpiration can be as much as 90% of landscape ET.  
 
+### Useful definitions (these are also in 02 Atmosphere)  
+The saturation vapor pressure, $e \ast$, can be computed by a number of methods:  
+
+\begin{multline}
+\log_{10} e \ast\ = 7.90298 (\frac{T_{st}}{T} - 1) + 5.02808 \log_{10} (\frac{T_{st}}{T}) - 1.3816 \times 10^{-7}  (10^{11.344 (1 - \frac{T}{T_{st}})} - 1) + 
+\\ 8.1328 \times 10^{-3} (10^{-3.19149 (\frac{T_{st}}{T} - 1)} - 1) + \log_{10} e \ast_st
+\end{multline}  
+
+where the logarithms are base 10, temperature is in Kelvin, and the steam-point temperature, $T_{st}$, is 373.16K and $e \ast_{st} = 1013.25 \mathrm{hPa}$.  Or, the nested form:
+
+\begin{equation}
+e \ast = a_0 + T ( a_1 + T ( a_2 + T ( a_3 + T (a_4 + T (a_5 + T a_6)))))
+\end{equation}  
+
+where the coefficients are given by:  
+
+|Variable|Value|
+|---|---|
+|$a_0$|$6984.505294$|
+|$a_1$|$-188.9039310$|
+|$a_2$|$2.133357675$|
+|$a_3$|$-1.288580973 \times 10^{-2}$|
+|$a_4$|$4.393587233 \times 10^{-5}$|
+|$a_5$|$-8.023923082 \times 10^{-8}$|
+|$a_6$|$6.136820929 \times 10^{-11}$|  
+
+The slope of the vapor pressure curve, $\Delta = \frac{d e \ast}{d T}$, is given by the empirical relationship:  
+
+\begin{equation}
+\Delta = \frac{d e \ast}{d T} = \frac{373.15 e \ast}{T^2} (13.3185-3.952 tr - 1.9335 tr^2 - 0.5196 tr^3)  
+\end{equation}  
+
+where $t_r = 1 - \frac{373.15}{T}$ and all temperatures, $T$, are in the same unit, $K$.  The psychrometric constant is given by:
+
+\begin{equation}
+\gamma = 4.9289 \times 10^{-7} T{2} + 3.4717 \times 10^{-4} T + 0.51443  
+\end{equation}  
+
+A typical value is $\gamma = 0.67 \frac{mb}{K}$ for $20^\circ C$ and standard atmosphere.  These have been measured and equations developed empirically or semi-empirically.
+
 ### 8.1 Eddy Covariance  
 As a related consequence, the turbulence profiles also allow us to estimate these fluxes by similarity.  This similarity is based on the structure of the atmospheric boundary layer.  The “Free” atmosphere is the portion of the atmosphere that is not affected by the motion of, or the activities on, the surface.  The inversion layer is the slip layer that transitions between the ABL and the free atmosphere.  Below, there are two general divisions, the outer/defect layer and the inner/surface layer.  Below the surface layer is the where the individual roughness elements play a great role.  It is in the inner/surface layer that we can apply most similarity concepts, that is, that the transfer of one fluid property occurs similarly to that of another property.  Formally, this is called Monin-Obukhov similarity, named after some of the initial discoverers.  From this, we get most turbulent similarity.  This is empirical.
 
