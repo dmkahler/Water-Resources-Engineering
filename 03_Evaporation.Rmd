@@ -68,6 +68,37 @@ where $t_r = 1 - \frac{373.15}{T}$ and all temperatures, $T$, are in the same un
 
 A typical value is $\gamma = 0.67 \frac{mb}{K}$ for $20^\circ C$ and standard atmosphere.  These have been measured and equations developed empirically or semi-empirically.
 
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+library(readr)
+library(lubridate)
+library(dplyr)
+library(ggplot2)
+library(latex2exp)
+library(devtools)
+install_github("LimpopoLab/hydrostats") # NEVER do this unless you know the origin of the code.
+library(hydrostats)
+
+t <- seq(from=0, to=40, by=0.1)
+delta <- sat_curve(t)
+gamma <- psych(t)
+coef1 <- delta/(delta+gamma)
+coef2 <- gamma/(delta+gamma)
+x <- data.frame(t,coef1,coef2)
+
+ggplot(x) +
+     geom_line(aes(x=t,y=coef1),color="blue") +
+     geom_line(aes(x=t,y=coef2),color="green") +
+     xlim(c(0,40)) +
+     ylim(c(0.1,0.9)) +
+     labs(x = TeX('Temperature ($^o C$)'), y = "") +
+     theme(legend.position = "none") +
+     theme(panel.background = element_rect(fill = "white", colour = "black")) +
+     theme(aspect.ratio = 1) +
+     theme(axis.text = element_text(face = "plain", size = 14), axis.title = element_text(face = "plain", size = 14)) +
+     theme(legend.text = element_text(face = "plain", size = 14), legend.title = element_text(face = "plain", size = 14))
+```
+For use in the evaporation equations, the *blue* line is $\frac{\Delta}{\Delta+\gamma}$ and the *green* line is $\frac{\gamma}{\Delta+\gamma}$.  
+
 ### 8.1 Eddy Covariance  
 As a related consequence, the turbulence profiles also allow us to estimate these fluxes by similarity.  This similarity is based on the structure of the atmospheric boundary layer.  The “Free” atmosphere is the portion of the atmosphere that is not affected by the motion of, or the activities on, the surface.  The inversion layer is the slip layer that transitions between the ABL and the free atmosphere.  Below, there are two general divisions, the outer/defect layer and the inner/surface layer.  Below the surface layer is the where the individual roughness elements play a great role.  It is in the inner/surface layer that we can apply most similarity concepts, that is, that the transfer of one fluid property occurs similarly to that of another property.  Formally, this is called Monin-Obukhov similarity, named after some of the initial discoverers.  From this, we get most turbulent similarity.  This is empirical.
 
@@ -124,13 +155,13 @@ This uses the common shorthand of $Q_{ne} = \frac{R_n - G}{L_e}$.
 E = \frac{\Delta}{\Delta + \gamma} Q_{ne} + \frac{\gamma}{\Delta + \gamma} E_A  
 \end{equation}  
 
-where $E_A$ is called the drying power of the wind.
+where $E_A$ is called the drying power of the wind.  $E_A$ is an empirical relationship given below, where the result is in $mm\ day^{-1}$.  In Penman's equation, you will need to adjust the terms to match units; it is conventional to report evaporation in depth per day, so we typically adjust the first term.  
 
 \begin{equation}
-E_A = f_e (\bar{u_r})(e^{\star}_s - e^{\star}_a)  
+E_A = f_e (\bar{u_r})(e^{\star}_s - \bar{e_a})  
 \end{equation}  
 
-where $f_e$ is the wind function and defined for a height of $h=2m$, thus $u_2$.  
+where $f_e$ is the wind function and defined for a height of $h=2m$, thus $u_2$.  Note that the vapor pressure, $e$, is in millibars ($mb$) or hectoPascals ($hPa$).  
 
 \begin{equation}
 f_e(\bar{u_2}) = 0.26 (1 + 0.54 \bar{u_2})  

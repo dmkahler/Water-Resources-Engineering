@@ -5,7 +5,7 @@ output: pdf_document
 header-includes: 
       \usepackage{amsmath}
 ---
-**CEES 351: Water Resources Engineering**  
+**CIVE 351: Water Resources Engineering**  
 **Duquesne University**  
 
 ```{r include=FALSE}

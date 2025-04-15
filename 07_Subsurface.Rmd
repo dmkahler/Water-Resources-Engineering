@@ -1,0 +1,136 @@
+---
+title: "Subsurface Flow"
+author: "David M. Kahler"
+output: pdf_document
+header-includes: 
+      \usepackage{amsmath}
+---
+**CIVE 351: Water Resources Engineering**  
+**Duquesne University**  
+
+```{r include=FALSE}
+library(ggplot2)
+library(raster)
+library(rgdal)
+library(dplyr)
+library(broom)
+```
+
+## Terms  
+**Porosity**, $n$, is the relative volume, $-\!\!\!\!V$ of a porous medium (e.g., soil) that is not occupied by the solid matrix.  The matrix is typically the solid sand grains and also includes organic matter or any other solid material.  
+
+\begin{equation}
+n = \frac{-\!\!\!\!V_{voids}}{-\!\!\!\!V_{total}}  
+\end{equation}  
+
+It is difficult to measure the density of an arbitrary solid matrix; nevertheless, the solid phase densiry, or **particle density** is defined as:  
+
+\begin{equation}
+\rho_{solid} = \frac{m_soilds}{-\!\!\!\!V_{solids}}  
+\end{equation}  
+
+In contrast to the **bulk density**, which is the density of the total arbitrary volume of the porous medium.  This measurement is made in dry conditions.  
+
+\begin{equation}
+B_d = \frac{m_total}{-\!\!\!\!V_{total}} = \frac{m_solid}{-\!\!\!\!V_{total}} = \frac{m_total}{-\!\!\!\!V_{solids} + -\!\!\!\!V_{voids}}  
+\end{equation}  
+
+**Volumetric Water Content** is the volume of water in the porous medium.  
+
+\begin{equation}
+n = \frac{-\!\!\!\!V_{water}}{-\!\!\!\!V_{total}}  
+\end{equation}  
+
+Notice that this definition places some restrictions on $\theta$, specifically, $0 \le \theta \le n$.  
+
+## Sieve Analysis  
+
+|Sieve size |Metric size |Minimum dry mass *Method A* |Minimum dry mass *Method B* |    
+|---|---|---|---|  
+|Lid       | -           | | |  
+|3 in.     |$75\ mm$     |$70\ kg$ | |  
+|2 in.     |$50.8\ mm$   |$25\ kg$ | |  
+|1.5 in.   |$38.1\ mm$   |$10\ kg$ | |  
+|1 in.     |$25.4\ mm$   |$3\ kg$ | |  
+|0.75 in.  |$19.0\ mm$   |$1.3\ kg$ | |  
+|0.375 in. |$9.5\ mm$    |$165\ g$ | |  
+|No. 4     |$4.75\ mm$   |$75\ g$ |$200\ g$ |  
+|No. 10    |$2.00\ mm$   |$50\ g$ |$100\ g$ |  
+|No. 20    |$850\ \mu m$ | | |  
+|No. 40    |$425\ \mu m$ |$50\ g$ |$75\ g$ |  
+|No. 60    |$250\ \mu m$ | | |  
+|No. 100   |$150\ \mu m$ | | |  
+|No. 140   |$106\ \mu m$ | | |  
+|No. 200   |$75\ \mu m$  | | |  
+|Pan       | -           | | |  
+
+Sieve analysis is done to determine the particle size distribution of a soil sample.  According to ASTM standard D6913-04 (2009), a sieve test utilizes 14 sieves that are shaken for 10 to 20 minutes.  The amount of sample is considered adequate if it yields the listed minimum fractional mass (additional information is listed in the full standard).  
+
+
+
+## Subsurface Components  
+
+
+## Capilary Action and Matrix Potential  
+
+## Darcy's Law  
+\begin{equation}
+q = \frac{Q}{A} = -K \frac{dh}{dl}  
+\end{equation}  
+
+Darcy's law gives the velocity of the fluid movement; however, this is not equal to the velocity of the fluid.  The fluid velocity is necessarily higher than the velocity of the flow because it has to move around the solid matrix.  We approximate the two-dimensional adjustment with the three-dimensional porosity, $u = \frac{q}{n}$ where $u$ is the fluid velocity, $q$ is the specific discharge or velocity of the flow, and $n$ is the porosity.  
+
+### Permeability  
+Permeability, $k$, is a function of the solid matrix while hydraulic conductivity, $K$, is a function of the solid matrix and applied to water.  These quantities are related as:  
+
+\begin{equation}
+K = k \frac{\rho g}{\mu} = k \frac{g}{\nu}  
+\end{equation}  
+
+where (values provided for water at $T = 15^{\circ}C$) $\rho = 999\ \frac{kg}{m^3}$ is the fluid density, $\mu = 1.137 \times 10^{-3}\ Pa \cdot s$ is the fluid dynamic viscosity, and $g = 9.81\ \frac{m}{s^2}$ is the acceleration due to gravity; $\nu = 1.138 \times 10^{-6}\ \frac{m^2}{s}$ is the kinematic viscosity.  The units on $K$ are length per time while $k$ is length squared.  There is also a unit called a *Darcy* that is defined as permeability such that the specific discharge is $q = 1\ \frac{cm}{s}$, a pressure gradient of $\frac{dh}{dl} = 1\ \frac{atm}{cm}$, and dynamic viscosity of $\mu = 1\ cP$) (Note: $cP$ is centiPoise, a unit of pressure).  
+
+### Piezometric Surface  
+
+
+
+## Permeameters  
+Permeameters measure the hydraulic conductivity of a sample.  There are two common configurations for the permeameter: constant head and falling head.  In the constant head setup, we begin with the same form of Darcy's equation as above and, as the head (i.e., pressure) changes across the length of the sample, we separate the differential equation:  
+
+\begin{equation}
+q = \frac{Q}{A} = -K \frac{dh}{dl}  
+\end{equation}  
+
+\begin{equation}
+\frac{Q}{A} \int_{0}^{L}\,dl = -K \int_{0}^{H}\,dh  
+\end{equation}  
+
+\begin{equation}
+\frac{QL}{A} = -K [0 - H]  
+\end{equation}  
+
+\begin{equation}
+K = \frac{QL}{AH}  
+\end{equation}  
+
+In the falling head setup, the flow rate is a function of the head, $h$, so we rewrite the equation where $dQ = a\frac{dh}{dt}$ and $a$ is the cross-sectional area of the head tube:  
+
+\begin{equation}
+q = \frac{Q}{A} = \frac{a\ dh}{A\ dt} = -K \frac{h}{L}  
+\end{equation}  
+
+\begin{equation}
+\frac{aL}{A} \int_{h_0}^{h_1}\frac{dh}{h} = -K \int_{t_0}^{t_1}dt  
+\end{equation}  
+
+\begin{equation}
+\frac{aL}{A} \ln\left(\frac{h_1}{h_0}\right) = -K \left( t_1 - t_0 \right)  
+\end{equation}  
+
+\begin{equation}
+K = \frac{aL}{A \Delta t} \ln\left(\frac{h_0}{h_1}\right)  
+\end{equation}  
+
+
+
+
+
