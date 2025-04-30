@@ -1,0 +1,53 @@
+---
+title: "Homework 5: Rivers"
+author: "David M. Kahler"
+output: pdf_document
+header-includes: 
+      \usepackage{amsmath}
+---
+
+**CIVE 351: Water Resources Engineering**  
+**Duquesne University**  
+
+1. Define the following terms.  
+- Perennial stream  
+- Intermittent stream  
+- Ephemeral stream  
+- Gaining stream  
+- Losing stream  
+
+2. Given the following unit hydrograph, construct the stream hydrograph for the storm that has excess rainfall of $p = 2\ mm$ in the first hour, $p = 4\ mm$ in the second hour, and $p = 3\ mm$ in the third hour.  Plot the stream response given a baseflow of $Q_{base} = 4.2\ m^3/s$.  
+
+|Time ($hr.$) |Direct discharge($m^3/s/mm$) |  
+|-------------|-------------------|  
+|0 |0 |  
+|1 |0.4 |  
+|2 |0.7 |  
+|3 |0.9 |  
+|4 |0.8 |  
+|5 |0.6 |  
+|6 |0.4 |  
+|7 |0.3 |  
+|8 |0.2 |  
+
+3. Assuming that the baseflow can be calculated by drawing a straight line connecting the end points of the hydrograph,
+
+| Time ($hr.$) | Excess Rainfall ($mm$) | Discharge($m^3/s$) |
+|--------------|----------------------|--------------------|
+| 0            | 5                    | 3.11               |
+| 1            | 4                    | 3.45               |
+| 2            |                      | 6.51               |
+| 3            |                      | 16.36              |
+| 4            |                      | 18.25              |
+| 5            |                      | 12.28              |
+| 6            |                      | 8.29               |
+| 7            |                      | 5.72               |
+| 8            |                      | 4.53               |
+| 9            |                      | 3.11               |
+
+separate the baseflow and the direct runoff contributions to runoff. Compute the unit hydrograph based on the excess rainfall.  Plot the unit hydrograph.  
+
+4. Use the [USGS Streamstats](https://streamstats.usgs.gov/ss/) website to find a smaller watershed (i.e., not crossing state lines, not taking up half of the state) that has a stream gage.  Find the rating curve and attach it.  Are there any disjointed components of the curve.  Using Google Maps or Google Earth, find the streamgage and make any observations that could cause such disjointed components of the rating curve.  
+
+5. You are judging the water resources for a remote village whose sole easily accessible water resource is a stream.  You make the following measurements and observations: "Natural channel, winding, with weeds," River bed slope $S_0 = 0.015$, and while this is a rounded bottom, you approximate the cross-section as a rectangle with a width of $b = 18\ m$ and a depth of $h = 0.6\ m$.  What is the discharge according to Manning's equation?  
+

@@ -69,7 +69,9 @@ Sieve analysis is done to determine the particle size distribution of a soil sam
 
 
 ## Subsurface Components  
+The subsurface is generally divided between the unsaturated, or vadose, zone and the saturated zone.  The vadose zone does have two areas of particular interest: the root zone and the capillary fringe.  The root zone is where roots can draw water, which therefore changes according to the vegetation.  The capillary fringe is the top of the saturated zone where capillary forces draw water up into the unsaturated zone from the saturated zone; this can, in some cases, extend all the way to the surface.  In the saturated zone, aquifers can be confined or unconfined depending if there is a confining layer above the aquifer (confined) or the top of the aquifer is a [near]-free-surface at the water table.
 
+In an unconfined aquifer, the water table is the potentiometric surface.  In a confined aquifer, the 
 
 ## Capilary Action and Matrix Potential  
 
