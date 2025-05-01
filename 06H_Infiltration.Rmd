@@ -1,0 +1,38 @@
+---
+title: "Infiltration Homework"
+author: "David M. Kahler"
+output: pdf_document
+header-includes: 
+      \usepackage{amsmath}
+---
+
+**CIVE 351: Water Resources Engineering**  
+**Duquesne University**  
+
+```{r include=FALSE}
+library(ggplot2)
+library(raster)
+library(rgdal)
+library(dplyr)
+library(broom)
+```
+
+Compare the infiltration for “sand” or “bare soil” for the SCS Curve Number method and the Green-Ampt equations. Consider 5 in. precipitation. Start with the average parameters for sand:
+𝜂 = 0.437
+𝜃i = 0.05 (assumption)
+Bd = 1550 kg/m3
+𝜓 = 4.95 cm
+K = 11.78 cm/h
+CN (II) = 77
+Differences you may observe highlight the need for calibration of models. You may wish to use a spreadsheet for the iterative calculations.
+
+
+
+
+
+A soil sample taken from the field with a 10 cmlong by 5 cm diameter cylindrical tube has a fieldweight of 306 g and an oven-dried weight of 245g. For the soil sample, calculate the: a) bulkdensity and porosity and b) volumetric soilmoisture and relative saturation.
+
+
+Suppose the volumetric soil moisture at a particular site ismeasured to be 0.024. Immediately after the soil moisturemeasurement is taken, the region experiences a snowmeltevent lasting 12 hours with a uniform melt flux intensity of0.69 mm/hr. Assume that this region is uniformly covered bysandy loam soil. Similar to a rainfall event, a snowmelt eventcan result in infiltration and/or infiltration excess runoff. Inthe case of a snowmelt event, the melt flux/rate would beanalogous to the rainfall rate during a storm event.  Assume the soil instead corresponded to one with thefollowing soil hydraulic properties: saturated hydraulicconductivity of 0.00125 cm hr-1, saturated matric head of -21.8cm, porosity of 0.435, and Brooks-Corey parameter b of 4.9. Isit possible that infiltration excess runoff will occur in thewatershed given the same snowmelt event described above?Justify your response. Using Green-Amptmodels, compute the time to ponding under these conditions.Will ponding occur for these conditions? Explain yourreasoning
+
+

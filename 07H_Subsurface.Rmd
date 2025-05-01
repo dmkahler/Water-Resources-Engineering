@@ -1,0 +1,43 @@
+---
+title: "Homework 7: Subsurface Flow"
+author: "David M. Kahler"
+output: pdf_document
+header-includes: 
+      \usepackage{amsmath}
+---
+**CIVE 351: Water Resources Engineering**  
+**Duquesne University**  
+
+```{r include=FALSE}
+library(ggplot2)
+library(raster)
+library(rgdal)
+library(dplyr)
+library(broom)
+```
+
+1. Given:  
+
+\begin{equation}
+n = \frac{-\!\!\!\!V_{voids}}{-\!\!\!\!V_{total}}  
+\end{equation}  
+
+\begin{equation}
+\rho_{solid} = \frac{m_soilds}{-\!\!\!\!V_{solids}}  
+\end{equation}  
+
+\begin{equation}
+B_d = \frac{m_total}{-\!\!\!\!V_{total}} = \frac{m_solid}{-\!\!\!\!V_{total}} = \frac{m_total}{-\!\!\!\!V_{solids} + -\!\!\!\!V_{voids}}  
+\end{equation}  
+
+- Show that:  
+
+\begin{equation}
+n = 1 - \frac{B_d}{\rho_{solid}}  
+\end{equation}  
+
+2. Determine the value of permeability $k = 1\ darcy$ in SI units.  Include in this, conversions for the pressure unit of an atmosphere ($atm$) and centipoise ($cp$).  
+
+3. 
+
+
