@@ -73,7 +73,7 @@ Manning’S roughness coefficient values for typical channels.  Data from Chow, 
 |Concrete |0.012 |  
 |Gravel with concrete sides |0.020 |  
 |Gravel with riprap sides |0.033 |  
-|Natural channel, straight, little vegetation 0.030 |  
+|Natural channel, straight, little vegetation |0.030 |  
 |Natural channel, winding, with weeds |0.050 |  
 |Natural channel, winding, with brush and timber |0.100 |  
 |Flood plains in pasture |0.035 |  
